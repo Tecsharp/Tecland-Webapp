@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+
+	<title>Perfil | Tecland Roleplay</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<style type="text/css">
+		body {
+			margin-top: 20px;
+			color: #1a202c;
+			text-align: left;
+			background: url(./images/bg.png);
+		}
+
+		.main-body {
+			padding: 15px;
+		}
+
+		.card {
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+		}
+
+		.btn-info {
+			color: #fff;
+			background-color: #3b8526;
+			border-color: #3b8526;
+		}
+
+		.card {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			word-wrap: break-word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 0 solid rgba(0, 0, 0, .125);
+			border-radius: .25rem;
+		}
+
+		.card-body {
+			flex: 1 1 auto;
+			min-height: 1px;
+			padding: 1rem;
+		}
+
+		.gutters-sm {
+			margin-right: -8px;
+			margin-left: -8px;
+		}
+
+		.gutters-sm>.col,
+		.gutters-sm>[class*=col-] {
+			padding-right: 8px;
+			padding-left: 8px;
+		}
+
+		.mb-3,
+		.my-3 {
+			margin-bottom: 1rem !important;
+		}
+
+		.bg-gray-300 {
+			background-color: #e2e8f0;
+		}
+
+		.h-100 {
+			height: 100% !important;
+		}
+
+		.shadow-none {
+			box-shadow: none !important;
+		}
+
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+
+		.tab button.active {
+			background-color: #ccc;
+		}
+
+
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border-top: none;
+		}
+
+		
+		_breadcrumb {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			padding: 0.75rem 1rem;
+			margin-bottom: 1rem;
+			list-style: none;
+			background-color: #ffffff;
+			border-radius: 0.25rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="main-body">
+
+			<nav aria-label="breadcrumb" class="main-breadcrumb">
+				<ol class="breadcrumb">
+					<div class="tab">
+						<a href="<%=request.getContextPath()%>/"><button class="tablinks">Inicio</button></a>
+						<a href="<%=request.getContextPath()%>/perfil"><button class="tablinks">Perfil</button></a>
+						<a href="<%=request.getContextPath()%>/membresias"><button
+								class="tablinks">Membresías</button></a>
+					</div>
+				</ol>
+			</nav>
+
+			<div class="row gutters-sm">
+				<div class="col-md-4 mb-3">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+								<img src="https://minotar.net/armor/bust/<%=usuario.getUsername()%>.png"
+									alt="<%=usuario.getUsername()%>" class="rounded-circle" width="150">
+								<div class="mt-3">
+									<h4>
+										<%=usuario.getUsername()%>
+									</h4>
+									<p class="text-secondary mb-1">
+										<% if(usuario.getEstadoConexion()==1){ %>
+											Conectado
+											<%} else if(usuario.getEstadoConexion()==0){%>
+												Desconectado
+												<%}%>
+									</p>
+									<p class="text-muted font-size-sm">Ultima ip: <%=usuario.getUltimaIp()%>
+									</p>
+									<div class="row">
+										<div class="col-sm-12">
+											<a class="btn btn-info " target="_self"
+												href="<%=request.getContextPath()%>/logout">Cerrar sesion</a>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="card mt-3">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h6 class="mb-0">Notificaciones | ver todas</h6>
+							</li>
+
+							<%for(Notificacion notifyLista : notificacionesLista){ if(notifyLista.getEstado()==1){%>
+								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+
+									<h6 class="mb-0">
+										<%=notifyLista.getNotificacionMensaje()%>
+									</h6>
+									<form name="submitForm" method="POST"
+										action="<%=request.getContextPath()%>/aceptar-amigo?userId=<%=notifyLista.getUsuarioId()%>">
+										<input type="hidden" name="userId" id="userId" value="userId">
+										<A HREF="javascript:document.submitForm.submit()">Aceptar amigo</A>
+									</form>
+								</li>
+								<%}%>
+									<%}%>
+						</ul>
+					</div>
+
+				</div>
+
+
+
+				<div class="col-md-8">
+					<div class="card mb-3">
+
+						<div class="tab">
+							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
+							<button id="Informacion-tab" class="tablinks"
+								onclick="openCity(event, 'Informacion')">Informacion</button>
+							<button id="Otros-tab" class="tablinks" onclick="openCity(event, 'Otros')">Otros</button>
+							<button id="Amigos-tab" class="tablinks" onclick="openCity(event, 'Amigos')">Amigos</button>
+						</div>
+
+
+
+						<div class="card-body">
+
+							<div id="Cuenta" class="tabcontent">
+
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Usuario</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<%=usuario.getUsername()%>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Dinero</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<%=usuario.getDinero()%>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Correo</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<%=usuario.getCorreo()%>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Puntos de trabajo</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<%=usuario.getPuntosTrabajoActual()%>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<a class="btn btn-info " target="__blank"
+											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
+											dinero</a>
+
+										<a class="btn btn-info " target="__blank"
+											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
+											VIP</a>
+									</div>
+								</div>
+							</div>
+
+							<div id="Informacion" class="tabcontent">
+								<p>Informacion</p>
+							</div>
+
+							<div id="Otros" class="tabcontent">
+								<p>Otros</p>
+							</div>
+
+							<div id="Amigos" class="tabcontent">
+
+								<table class="table">
+									<thead>
+										<tr>
+
+											<div class="search-container">
+												<form action="<%=request.getContextPath()%>/buscar"
+													class="navbar-search pull-left" method="post">
+													<input type="text" placeholder="Buscar amigos.." name="buscar"
+														id="buscar">
+													<button type="submit" class="btn-info">Buscar</button>
+												</form>
+											</div>
+										</tr>
+									</thead>
+
+									<tbody>
+
+										<%for(Amigo amigos : amigosLista){%>
+
+											<tr>
+												<!-- <th scope="row">1</th> -->
+												<td><img src="https://minotar.net/armor/bust/<%=amigos.getNombre()%>.png"
+														alt="<%=amigos.getNombre()%>" class="rounded-circle" width="40">
+												</td>
+												<td>
+													<%=amigos.getNombre()%>
+												</td>
+												<%if(amigos.getEstado()==0){%>
+													<td>Desconectado</td>
+													<%} else if(amigos.getEstado()==1){%>
+														<td>Conectado</td>
+														<%} else {%>
+															<td>Desconocido</td>
+															<%}%>
+																<td>Mensaje</td>
+																<td>
+
+																	<div class="row">
+																		<div class="col-sm-12">
+
+
+																			<div class="search-container">
+																				<form
+																					action="<%=request.getContextPath()%>/eliminar-amigo?userId=<%=amigos.getId()%>"
+																					class="navbar-search pull-left"
+																					method="post">
+																					<button type="submit" name="userId"
+																						id="userId"
+																						class="btn-info">Eliminar</button>
+																				</form>
+
+
+																			</div>
+																		</div>
+
+																</td>
+											</tr>
+											<%}%>
+									</tbody>
+								</table>
+
+							</div>
+
+							<script>
+								function openCity(evt, cityName) {
+									var i, tabcontent, tablinks;
+									tabcontent = document.getElementsByClassName("tabcontent");
+									for (i = 0; i < tabcontent.length; i++) {
+										tabcontent[i].style.display = "none";
+									}
+									tablinks = document.getElementsByClassName("tablinks");
+									for (i = 0; i < tablinks.length; i++) {
+										tablinks[i].classList.remove("active");
+									}
+									document.getElementById(cityName).style.display = "block";
+									document.getElementById(cityName + "-tab").classList.add("active");
+									// evt.currentTarget.className += " active";
+								}
+
+								// Get the element with id="defaultOpen" and click on it
+								document.getElementById("Cuenta-tab").click();
+							</script>
+
+						</div>
+					</div>
+					<div class="row gutters-sm">
+						<div class="col-sm-6 mb-3">
+							<div class="card h-100">
+								<div class="card-body">
+									<h6 class="d-flex align-items-center mb-3">Trabajos activos</h6>
+
+									<%for (Trabajo trabajosActivos : listaTrabajosActivos) {%>
+										<small><img
+												src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
+												style="width:16px;height:16px;">
+											<%=trabajosActivos.getNombre()%> | Nivel: <%=trabajosActivos.getNivel()%> /
+													200
+										</small>
+
+										<div class="progress mb-3" style="height: 5px">
+											
+												<div class="progress-bar bg-primary" role="progressbar"
+													style="width: 67%"
+													aria-valuenow="<%=trabajosActivos.getNivel()%>" aria-valuemin="0"
+													aria-valuemax="200"></div>
+										</div>
+										<%}%>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-6 mb-3">
+							<div class="card h-100">
+								<div class="card-body">
+									<h6 class="d-flex align-items-center mb-3">Trabajos no activos</h6>
+
+									<%if(listaTrabajosNoActivos.isEmpty()){%>
+										<p>NO HAY TRABAJOS PARA MOSTRAR</p>
+										<%}%>
+											<%for (Trabajo trabajosNoActivos : listaTrabajosNoActivos) {%>
+
+												<small><img
+														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
+														style="width:16px;height:16px;">
+													<%=trabajosNoActivos.getNombre()%> | Nivel:
+														<%=trabajosNoActivos.getNivel()%> / 200
+												</small>
+
+												<div class="progress mb-3" style="height: 5px">
+													<% Integer nivelTotal=200; Integer
+														nivelFinal=nivelTotal*trabajosNoActivos.getNivel()/100; %>
+														<div class="progress-bar bg-primary" role="progressbar"
+															style="width: <%=nivelFinal%>%"
+															aria-valuenow="<%=trabajosNoActivos.getNivel()%>"
+															aria-valuemin="0" aria-valuemax="200"></div>
+												</div>
+												<%}%>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+
+	</script>
+</body>
+
+</html>

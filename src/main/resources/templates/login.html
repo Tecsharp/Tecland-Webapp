@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Iniciar sesión | Tecland</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="#">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/icon-font.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/animate.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/hamburgers.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/animsition.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/select2.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/daterangepicker.css">
+
+	<link rel="stylesheet" type="text/css" href="./login_files/util.css">
+	<link rel="stylesheet" type="text/css" href="./login_files/main.css">
+
+	<meta name="robots" content="noindex, follow">
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form action="#" th:action="@{/login-auth}" method="post" class="login100-form validate-form">
+					<span class="login100-form-title p-b-34">
+						INICIA SESIÓN
+					</span>
+					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+						<input id="first-name" class="input100" type="text" th:field="*{usuario.username}" name="username" 
+							placeholder="Usuario">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
+						<input class="input100" type="password" th:field="*{usuario.password}" name="password" placeholder="Contraseña">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							INICIAR
+						</button>
+					</div>
+
+					<div class="w-full text-center p-t-27 p-b-239">
+						<span class="txt1">
+							Olvidaste tu
+						</span>
+						<a href="#" class="txt2">
+							usuario / contraseña?
+						</a>
+					</div>
+					<div class="w-full text-center">
+						<a href="#" class="txt3">
+							Registrarse
+						</a>
+					</div>
+				</form>
+
+				<div class="login100-more" style=""></div>
+			</div>
+		</div>
+	</div>
+	<div id="dropDownSelect1"></div>
+
+	<script src="./login_files/jquery-3.2.1.min.js"></script>
+
+	<script src="./login_files/animsition.min.js"></script>
+
+	<script src="./login_files/popper.js"></script>
+	<script src="./login_files/bootstrap.min.js"></script>
+
+	<script src="./login_files/select2.min.js"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+
+	</script>
+
+	<script src="./login_files/moment.min.js"></script>
+	<script src="./login_files/daterangepicker.js"></script>
+
+	<script src="./login_files/countdowntime.js"></script>
+
+	<script src="./login_files/main.js"></script>
+
+	<script async="" src="./login_files/js"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-23581568-13');
+
+	</script>
+	<script defer="" src="./login_files/v52afc6f149f6479b8c77fa569edb01181681764108816"
+		integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+		data-cf-beacon="{&quot;rayId&quot;:&quot;7d2997e6cb85e542&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
+		crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

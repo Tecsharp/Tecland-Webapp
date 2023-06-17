@@ -1,0 +1,31 @@
+package com.tecsharp.tecland.web.app.models;
+
+import lombok.Data;
+
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+@Data
+@Component
+public class Usuario {
+
+    private Integer id;
+    private String username;
+    private String correo;
+    private String password;
+    private Integer dinero;
+    private Integer vip;
+    private Date dateCreate;
+    private Date dateUpdate;
+
+    // JOBS PLUGIN //
+    private Double puntosTrabajoActual;
+    private Trabajo trabajo; // crear model trabajo
+
+    //AUTHME PLUGIN //
+    private String ultimaIp;
+    private Integer estadoConexion;
+
+
+}
