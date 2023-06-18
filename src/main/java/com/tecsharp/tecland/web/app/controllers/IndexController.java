@@ -43,24 +43,11 @@ public class IndexController extends HttpServlet {
 	
 	
 	@GetMapping({"/index", "/"})
-	public String index(HttpServletRequest req, HttpServletResponse resp, Model model) throws ServletException, IOException{
-        LoginService auth = new LoginServiceSessionImpl();
-        Optional<String> usernameOptional = auth.getUsername(req);
-        Optional<Integer> userAdminOptional = auth.getUserType(req);
+	public String index(Model model) throws ServletException, IOException{
+        
       
-        model.addAttribute("username", usernameOptional);
-        model.addAttribute("userAdminOptional", userAdminOptional);
-        
-        ArrayList<Notificacion> notificaciones = notificacionService.obtenerNotificacionesUsuario(3);
-       
-        model.addAttribute("notificaciones", notificaciones);
-        
-        Usuario denisse = new Usuario();
-        denisse.setId(1);
-        denisse.setPassword("Denisse23");
-        denisse.setUsername("Denisse");
-        model.addAttribute("usuario", denisse);
-
+		Usuario user = (Usuario) model.getAttribute("usuario");
+		
 
         return "index";
 

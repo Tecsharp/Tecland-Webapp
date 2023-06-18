@@ -1,6 +1,6 @@
 package com.tecsharp.tecland.web.app.services.login;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import com.tecsharp.tecland.web.app.models.Usuario;
 
 import java.util.Optional;
@@ -17,7 +17,7 @@ public interface LoginService {
 
     Optional<Integer> getId(HttpServletRequest request);
 
-    Optional<String> getUser(HttpServletRequest request);
+    Optional<String> getUser(HttpServletRequest username);
 
     Optional<Integer> getUserType(HttpServletRequest request);
 

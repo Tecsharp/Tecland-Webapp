@@ -1,9 +1,11 @@
 package com.tecsharp.tecland.web.app.models;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class Amigo {
+public class Amigo implements Serializable{
 
     private Integer id;
     private String nombre;

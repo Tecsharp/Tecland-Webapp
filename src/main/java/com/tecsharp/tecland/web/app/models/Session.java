@@ -5,9 +5,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class Trabajo implements Serializable{
-
-    private String nombre;
-    private Integer nivel;
+public class Session implements Serializable{
+	
+	private Usuario usuario;
 
 }

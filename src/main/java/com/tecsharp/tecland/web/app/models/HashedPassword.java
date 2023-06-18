@@ -1,6 +1,8 @@
 package com.tecsharp.tecland.web.app.models;
 
-public class HashedPassword {
+import java.io.Serializable;
+
+public class HashedPassword implements Serializable{
 
     private final String hash;
     private final String salt;

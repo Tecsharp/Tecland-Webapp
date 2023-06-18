@@ -1,7 +1,7 @@
 package com.tecsharp.tecland.web.app.services.login.impl;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession; 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession; 
 import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 
