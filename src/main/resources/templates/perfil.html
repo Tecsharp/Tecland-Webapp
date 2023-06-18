@@ -182,9 +182,9 @@
 								<h6 class="mb-0">Notificaciones | ver todas</h6>
 							</li>
 
-							<%for(Notificacion notifyLista : notificacionesLista){ if(notifyLista.getEstado()==1){%>
+							<h6%for(Notificacion notifyLista : notificacionesLista){ if(notifyLista.getEstado()==1){%>
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-
+									<h6 th:text="${session.usuario.username}"> alv paisano</h6>
 									<h6 class="mb-0">
 										<%=notifyLista.getNotificacionMensaje()%>
 									</h6>
@@ -396,27 +396,24 @@
 								<div class="card-body">
 									<h6 class="d-flex align-items-center mb-3">Trabajos no activos</h6>
 
-									<%if(listaTrabajosNoActivos.isEmpty()){%>
+									
 										<p>NO HAY TRABAJOS PARA MOSTRAR</p>
-										<%}%>
-											<%for (Trabajo trabajosNoActivos : listaTrabajosNoActivos) {%>
+										
 
 												<small><img
 														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
 														style="width:16px;height:16px;">
-													<%=trabajosNoActivos.getNombre()%> | Nivel:
-														<%=trabajosNoActivos.getNivel()%> / 200
+													
 												</small>
 
 												<div class="progress mb-3" style="height: 5px">
-													<% Integer nivelTotal=200; Integer
-														nivelFinal=nivelTotal*trabajosNoActivos.getNivel()/100; %>
+													
 														<div class="progress-bar bg-primary" role="progressbar"
-															style="width: <%=nivelFinal%>%"
+															style="width: 65%"
 															aria-valuenow="<%=trabajosNoActivos.getNivel()%>"
 															aria-valuemin="0" aria-valuemax="200"></div>
 												</div>
-												<%}%>
+												
 
 								</div>
 							</div>

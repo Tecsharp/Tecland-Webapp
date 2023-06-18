@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
@@ -40,7 +43,7 @@ public class LoginController implements Serializable {
 		try {
 			HttpSession session = req.getSession();
 			usuario = (Usuario) session.getAttribute("usuario"); // SE RECUPERA EL USUARIO
-			req.setAttribute("usuario", usuario); // SE ENVIA AL REQUEST
+			req.getSession().setAttribute("usuario", usuario); // SE ENVIA AL REQUEST
 		} catch (Exception e) {
 
 		}
@@ -53,32 +56,21 @@ public class LoginController implements Serializable {
 	}
 
 	@PostMapping({ "/login-auth" })
-	public String loginAuth(HttpServletRequest req, HttpSession session, RedirectAttributes redirectAttributes,
-			@RequestParam String username, String password, Model model) throws ServletException, IOException {
+	public String loginAuth(HttpServletRequest req, @RequestParam String username, String password, Model model) throws ServletException, IOException {
 
-		// Usuario usuario = loginService.obtenerUsuario(password, username);
-
-		LoginService usr = new LoginServiceImpl();
-		Usuario usuario = usr.obtenerUsuario(password, username);
+		Usuario usuario = loginService.obtenerUsuario(password, username);
+		req.getSession().setAttribute("usuario", usuario);
 
 		if (usuario != null) {
-			HttpSession ses = req.getSession();
 			
-			
-			if (ses == null) {
-				System.out.println("kk");
-				session.setAttribute("username", username);
-				System.out.println("kk");
-				req.setAttribute("usuario", usuario); // add to request
-				System.out.println("kk");
-				req.getSession().setAttribute("usuario", usuario); // add to session
-				System.out.println("kk");
-			}
-			return "redirect:/perfil";
+			return "forward:/cuenta";
 
 		} else {
 			return "redirect:/login";
 		}
+
 	}
+
+	
 
 }

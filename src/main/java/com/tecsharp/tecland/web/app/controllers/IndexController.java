@@ -30,7 +30,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping({"/", "/index"})
 public class IndexController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

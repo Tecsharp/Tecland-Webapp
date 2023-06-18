@@ -20,8 +20,8 @@ public class LoginServiceSessionImpl implements LoginService {
     public Optional<String> getUsername(HttpServletRequest request) {
         try {
         	
-    	HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+    	
+        String username = (String) request.getAttribute("username");
         if (username != null) {
             return Optional.of(username);
         }

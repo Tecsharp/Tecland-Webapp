@@ -31,7 +31,7 @@ public class AmigoServiceImpl implements AmigoService {
             a.setSolicitudPendiente(amigoRepository.obtieneSolicitudPendiente(userId, a.getId()));
             a.setSolicitudEnviada(amigoRepository.obtieneSolicitudEnviada(userId, a.getId()));
         }
-
+ 
         return amigos;
     }
 
