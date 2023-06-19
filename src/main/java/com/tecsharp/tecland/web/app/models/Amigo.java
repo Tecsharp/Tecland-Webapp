@@ -15,4 +15,5 @@ public class Amigo implements Serializable{
     private Boolean isFriend;
     private Boolean solicitudPendiente;
     private Boolean solicitudEnviada;
+    private String imageUrl;
 }

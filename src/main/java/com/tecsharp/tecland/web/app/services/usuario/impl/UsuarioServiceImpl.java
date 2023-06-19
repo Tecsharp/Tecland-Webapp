@@ -1,9 +1,11 @@
 package com.tecsharp.tecland.web.app.services.usuario.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.tecsharp.tecland.web.app.models.Usuario;
+import com.tecsharp.tecland.web.app.repositories.usuario.UsuarioRepository;
 import com.tecsharp.tecland.web.app.repositories.usuario.impl.UsuarioRepositoryImpl;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 
@@ -11,6 +13,10 @@ import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 @Service
 @Primary
 public class UsuarioServiceImpl implements UsuarioService {
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
     @Override
     public Usuario login(String username, String password) {
         UsuarioRepositoryImpl repository = new UsuarioRepositoryImpl();
@@ -38,6 +44,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     }
+
+	@Override
+	public Usuario findByUsername(String username) {
+		
+		Usuario usuario = usuarioRepository.findByUsername(username);
+		
+		return usuario;
+	}
 
 
 }

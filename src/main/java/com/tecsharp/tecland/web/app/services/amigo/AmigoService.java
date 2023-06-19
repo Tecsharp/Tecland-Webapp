@@ -25,4 +25,5 @@ public interface AmigoService {
 
     Boolean eliminarAmigo(Integer usuario, Integer usuarioAmigo);
 
+    String recuperarLinkAvatarURL(String username);
 }

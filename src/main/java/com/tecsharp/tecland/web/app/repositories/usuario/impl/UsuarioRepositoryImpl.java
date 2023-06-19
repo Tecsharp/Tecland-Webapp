@@ -13,6 +13,12 @@ import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+
+@Component
+@Qualifier("usuarioRepository")
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
 

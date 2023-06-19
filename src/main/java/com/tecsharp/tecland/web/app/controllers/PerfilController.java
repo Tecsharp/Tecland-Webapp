@@ -18,10 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.tecsharp.tecland.web.app.models.Amigo;
 import com.tecsharp.tecland.web.app.models.Notificacion;
+import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.models.Usuario;
+import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
+import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
+import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
+import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,57 +39,55 @@ import javax.servlet.http.HttpSession;
 public class PerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 
 	@Autowired
 	@Qualifier("loginServiceSession")
 	private LoginService loginService;
 
-	@PostMapping({ "/cueeeeenta" })
-	public String toPerfil(HttpServletRequest req, Model model) throws ServletException, IOException {
-		
-		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-		req.getSession().setAttribute("usuario", usuario);
-		
-		if (usuario != null) {
+	@Autowired
+	@Qualifier("perfilServicePrincipal")
+	private PerfilService perfilService;
+	
+	@Autowired
+	private TrabajoService trabajoService;
+	
+	@Autowired
+	private AmigoService amigoService;
+	
+	@Autowired
+	private NotificacionService notificacionService;
 
-			return "/perfil";
+	@GetMapping({ "/perfil" })
+	public String toPerfil(HttpServletRequest req, Model model) throws ServletException, IOException {
+
+		if (req.getSession().getAttribute("USERNAME") != null) {
+
+			try {
+				
+				Perfil perfil = perfilService.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
+				model.addAttribute("perfil", perfil);
+				model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
+				model.addAttribute("trabajosNoActivos", trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
+				
+				ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(perfil.getUsuario().getId());
+				model.addAttribute("amigosLista", amigosLista);
+				
+				ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario((Integer)req.getSession().getAttribute("ID"));
+				req.setAttribute("notificacionesLista", notificacionesLista);
+				
+			} catch (Exception e) {
+				return "redirect:/login";
+			}
+			return "perfil";
 
 		} else {
 			return "redirect:/login";
 		}
-
-	}
-	
-	@PostMapping("/cuenta")
-    public String forwardedWithParams(HttpServletRequest req) {
-        //redirectAttributes.addAttribute("param1", req.getAttribute("param1"));
-        
-        Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-		req.getSession().setAttribute("usuario", usuario);
-        return "redirect:/perfil";
-    }
-	
-	@GetMapping({ "/perfil" })
-	public String login(HttpServletRequest req, HttpSession session, Model model) throws ServletException, IOException {
-
-		try {
-			
-            Usuario usuario = (Usuario) session.getAttribute("usuario"); //SE RECUPERA EL USUARIO
-            
-			
-			Optional<String> usernameOptional = loginService.getUsername(req);
-			if (usernameOptional.isPresent()) {
-
-				return "perfil";
-
-			} else {
-				return "redirect:/";
-			}
-		} catch (Exception e) {
-			return "redirect:/";
-		}
-
 	}
 
+	@PostMapping("/destroy")
+	public String destroySession(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "redirect:/";
+	}
 }

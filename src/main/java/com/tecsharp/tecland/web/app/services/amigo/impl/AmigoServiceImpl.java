@@ -30,6 +30,7 @@ public class AmigoServiceImpl implements AmigoService {
             a.setIsFriend(amigoRepository.obtieneIsFriend(userId, a.getId()));
             a.setSolicitudPendiente(amigoRepository.obtieneSolicitudPendiente(userId, a.getId()));
             a.setSolicitudEnviada(amigoRepository.obtieneSolicitudEnviada(userId, a.getId()));
+            a.setImageUrl(recuperarLinkAvatarURL(a.getNombre()));
         }
  
         return amigos;
@@ -37,7 +38,11 @@ public class AmigoServiceImpl implements AmigoService {
 
     @Override
     public ArrayList<Amigo> obtenerListaAmigos(Integer usernameId) {
-        return amigoRepository.obtenerAmigos(usernameId);
+    	ArrayList <Amigo> lista = amigoRepository.obtenerAmigos(usernameId);
+    	for (Amigo a : lista) {
+            a.setImageUrl(recuperarLinkAvatarURL(a.getNombre()));
+        }
+        return lista;
     }
 
     @Override
@@ -123,4 +128,12 @@ public class AmigoServiceImpl implements AmigoService {
 
         return false;
     }
+
+    @Override
+	public String recuperarLinkAvatarURL(String username) {
+		
+		return "https://minotar.net/armor/bust/" + username + ".png";
+	}
+    
+
 }
