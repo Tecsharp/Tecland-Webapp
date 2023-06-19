@@ -1,6 +1,7 @@
 package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping({"/", "/index"})
-public class IndexController extends HttpServlet {
+public class IndexController implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,11 +44,8 @@ public class IndexController extends HttpServlet {
 	
 	
 	@GetMapping({"/index", "/"})
-	public String index(Model model) throws ServletException, IOException{
-        
-      
-		Usuario user = (Usuario) model.getAttribute("usuario");
-		
+	public String index(HttpServletRequest req, Model model) throws ServletException, IOException{
+        		
 
         return "index";
 

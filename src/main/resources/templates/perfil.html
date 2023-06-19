@@ -185,9 +185,9 @@ _breadcrumb {
 									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6></h6>
 									<h6 class="mb-0" th:text="${notificaciones.notificacionMensaje}"></h6>
-									
-										<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
-									
+									<a th:href="${notificaciones.urlAceptar}">Aceptar amigo</a>
+										<!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
+										-->
 								</li>
 
 							</tr>
@@ -275,9 +275,9 @@ _breadcrumb {
 
 											<div class="search-container">
 												<form action="/buscar" class="navbar-search pull-left"
-													method="post">
+													method="get">
 													<input type="text" placeholder="Buscar amigos.."
-														name="buscar" id="buscar">
+														name="busqueda" id="busqueda">
 													<button type="submit" class="btn-info">Buscar</button>
 												</form>
 											</div>

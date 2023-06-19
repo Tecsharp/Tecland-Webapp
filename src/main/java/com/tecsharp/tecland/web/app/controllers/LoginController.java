@@ -42,9 +42,8 @@ public class LoginController implements Serializable {
 
 		String user = (String) session.getAttribute("USERNAME"); // SE OBTIENE EL USUARIO DE LA SESION
 		model.addAttribute("user", user); // SE MANDA A LA VISTA HTML
-
 		return "login";
-
+			
 	}
 
 	@PostMapping({ "/login-auth" })

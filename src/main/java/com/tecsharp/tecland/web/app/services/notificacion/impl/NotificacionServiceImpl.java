@@ -27,6 +27,9 @@ public class NotificacionServiceImpl implements NotificacionService {
     @Override
     public ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
         ArrayList<Notificacion> listaNotificaciones = notificacionRepository.obtenerNotificacionesUsuario(usuarioId);
+        
+        
+        
         return listaNotificaciones;
     }
 

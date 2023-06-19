@@ -14,5 +14,8 @@ public class Notificacion implements Serializable{
     private String notificacionMensaje;
     private Integer estado;
     private String url;
+    
+    private String urlAceptar;
+    private String urlRechazar;
 
 }

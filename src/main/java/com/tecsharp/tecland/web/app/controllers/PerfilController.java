@@ -60,7 +60,11 @@ public class PerfilController implements Serializable {
 	@GetMapping({ "/perfil" })
 	public String toPerfil(HttpServletRequest req, Model model) throws ServletException, IOException {
 
-		if (req.getSession().getAttribute("USERNAME") != null) {
+		
+		String username = (String) req.getSession().getAttribute("USERNAME");
+		req.getSession().setAttribute("USERNAME", username);
+		if (username != null) {
+			
 
 			try {
 				
@@ -89,5 +93,13 @@ public class PerfilController implements Serializable {
 	public String destroySession(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/";
+	}
+	
+	@GetMapping({"/buscar"})
+	public String aceptarAmigo(@RequestParam String busqueda, HttpServletRequest req, Model model) {
+		
+		String username = (String) req.getSession().getAttribute("USERNAME");
+		
+		return "redirect:/perfil/buscar";
 	}
 }

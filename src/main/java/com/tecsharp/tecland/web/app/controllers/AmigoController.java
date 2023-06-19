@@ -1,6 +1,7 @@
 package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
 import com.tecsharp.tecland.web.app.models.Notificacion;
+import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
+import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 
 import jakarta.servlet.ServletException;
@@ -31,7 +34,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping({ "/" })
-public class AmigoController extends HttpServlet {
+public class AmigoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,14 +44,22 @@ public class AmigoController extends HttpServlet {
 	@Autowired
 	private NotificacionService notificacionService;
 	
+	@Autowired
+	private PerfilService perfilService;
+	
 	
 
-	@PostMapping({ "/buscar" })
-	public String buscarAmigo(@RequestParam String busqueda, HttpServletRequest req, Model model)
+	@GetMapping({ "/perfil/buscar" })
+	public String buscarAmigo(HttpServletRequest req, @RequestParam String busqueda, Model model)
 			throws ServletException, IOException {
+			
+		
+		String usr2 = (String) req.getSession().getAttribute("USERNAME");
+		
+		if (busqueda != null) {
 
-		if (req.getSession().getAttribute("USERNAME") != null) {
-
+			Perfil perfil = perfilService.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
+			model.addAttribute("perfil", perfil);
 			
 			ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(busqueda, (Integer)req.getSession().getAttribute("ID"));
 			req.setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
@@ -58,7 +69,7 @@ public class AmigoController extends HttpServlet {
 			req.setAttribute("notificacionesLista", notificacionesLista);
 
 		} else {
-			return "/";
+			return "redirect:/perfil";
 		}
 
 		return "buscar";
@@ -66,11 +77,11 @@ public class AmigoController extends HttpServlet {
 	}
 	
 	@GetMapping({"/aceptar"})
-	public String aceptarAmigo(@RequestParam String userId, HttpServletRequest req, Model model) {
+	public String aceptarAmigo(@RequestParam Integer userId, HttpServletRequest req, Model model) {
 		
-		String id = userId;
+		amigoService.aceptarSolicitudDeAmistad(userId, (Integer)req.getSession().getAttribute("ID"));
 		
-		return "/";
+		return "redirect:/perfil";
 	}
 
 }

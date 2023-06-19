@@ -50,7 +50,9 @@ public class NotificacionRepositoryImpl implements NotificacionRepository {
                 notificacion.setNotificacionMensaje(result.getString("notificacionMensaje"));
                 notificacion.setEstado(result.getInt("estado"));
                 notificacion.setUrl(result.getString("url"));
+                if(notificacion.getEstado() == 1) {
                 listaNotificaciones.add(notificacion);
+                } 
             }
         } catch (Exception e) {
             e.printStackTrace();
