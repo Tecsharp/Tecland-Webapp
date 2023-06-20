@@ -138,7 +138,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
                 dbUsuarioSender = result.getInt("usuarioIdSender");
                 dbEstado = result.getInt("estado");
 
-                if (usuarioId == dbUsuarioId && dbUsuarioSender == usuarioIdSender && dbEstado == 1) {
+                if (usuarioId.equals(dbUsuarioId) && dbUsuarioSender.equals(usuarioIdSender) && dbEstado == 1) {
                     return true;
                 }
 
@@ -155,6 +155,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
     public Boolean obtieneSolicitudEnviada(Integer usuarioEmisor, Integer usuarioReceptor) {
         Integer dbUsuarioReceptor = null;
         Integer dbUsuarioEmisor = null;
+        Boolean solicitudEnviada = false;
         String query2 = "SELECT * FROM solicitudesAmistad where usuarioEmisor = ? and usuarioReceptor = ?;";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
@@ -168,18 +169,19 @@ public class AmigoRepositoryImpl implements AmigoRepository {
 
                 dbUsuarioReceptor = result.getInt("usuarioReceptor");
                 dbUsuarioEmisor = result.getInt("usuarioEmisor");
-
-                if (usuarioReceptor == dbUsuarioReceptor && usuarioEmisor == dbUsuarioEmisor) {
-                    return true;
-                }
+                
+                if (dbUsuarioReceptor.equals(usuarioReceptor) && dbUsuarioEmisor.equals(usuarioEmisor)) { 
+                	solicitudEnviada = true;
+                } 
 
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return solicitudEnviada;
         }
 
-        return false;
+        return solicitudEnviada;
     }
 
     @Override

@@ -179,14 +179,19 @@ _breadcrumb {
 							</li>
 
 
-						
+
 							<tr th:each="notificaciones : ${notificacionesLista}">
 								<li
 									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6></h6>
-									<h6 class="mb-0" th:text="${notificaciones.notificacionMensaje}"></h6>
-									<a th:href="${notificaciones.urlAceptar}">Aceptar amigo</a>
-										<!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
+									<h6 class="mb-0"
+										th:text="${notificaciones.notificacionMensaje}"></h6>
+									<form
+										th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud=' + ${notificaciones.usuarioId}"
+										class="navbar-search pull-left" method="post">
+										<button type="submit" name="userId" id="userId"
+											class="btn-info">Aceptar solicitud</button>
+									</form> <!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
 										-->
 								</li>
 
@@ -274,8 +279,8 @@ _breadcrumb {
 										<tr>
 
 											<div class="search-container">
-												<form action="/buscar" class="navbar-search pull-left"
-													method="get">
+												<form action="/perfil/buscar"
+													class="navbar-search pull-left" method="POST">
 													<input type="text" placeholder="Buscar amigos.."
 														name="busqueda" id="busqueda">
 													<button type="submit" class="btn-info">Buscar</button>
@@ -294,7 +299,7 @@ _breadcrumb {
 												th:alt="${amigos.nombre}" class="rounded-circle" width="40"></td>
 											<td th:text="${amigos.nombre}"></td>
 
-											<td th:if="${amigos.estado == 0}">Desconectado</td> 
+											<td th:if="${amigos.estado == 0}">Desconectado</td>
 											<td th:unless="${amigos.estado == 0}">Conectado</td>
 
 
@@ -309,7 +314,7 @@ _breadcrumb {
 
 														<div class="search-container">
 															<form
-																action="<%=request.getContextPath()%>/eliminar-amigo?userId=<%=amigos.getId()%>"
+																th:action="@{/eliminar-amigo} + '?idUsuarioSolicitud='+ ${amigos.id}"
 																class="navbar-search pull-left" method="post">
 																<button type="submit" name="userId" id="userId"
 																	class="btn-info">Eliminar</button>

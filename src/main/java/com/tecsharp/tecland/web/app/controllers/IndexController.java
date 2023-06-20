@@ -22,12 +22,8 @@ import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller

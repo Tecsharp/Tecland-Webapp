@@ -38,33 +38,43 @@ public class LoginController implements Serializable {
 	private LoginService loginService;
 
 	@GetMapping({ "/login" })
-	public String login(Model model, HttpSession session) throws ServletException, IOException {
+	public String login(HttpServletRequest req, Model model, HttpSession session) throws ServletException, IOException {
 
-		String user = (String) session.getAttribute("USERNAME"); // SE OBTIENE EL USUARIO DE LA SESION
-		model.addAttribute("user", user); // SE MANDA A LA VISTA HTML
-		return "login";
-			
+		String user = (String) req.getSession().getAttribute("USERNAME"); // SE OBTIENE EL USUARIO DE LA SESION
+		if (user != null) {
+			model.addAttribute("user", user); // SE MANDA A LA VISTA HTML
+			return "redirect:/perfil";
+		} else {
+			return "login";
+		}
+
 	}
 
 	@PostMapping({ "/login-auth" })
 	public String loginAuth(HttpServletRequest req, @RequestParam String username, String password)
 			throws ServletException, IOException {
-		try {
+		String user = (String) req.getSession().getAttribute("USERNAME");
+		if (user == null) {
+			try {
 
-			Usuario usuario = loginService.obtenerUsuario(password, username);
-			if (usuario != null) {
+				Usuario usuario = loginService.obtenerUsuario(password, username);
+				if (usuario != null) {
 
-				req.getSession().setAttribute("ID", usuario.getId());
-				req.getSession().setAttribute("USERNAME", username);
-				return "redirect:/perfil";
+					req.getSession().setAttribute("ID", usuario.getId());
+					req.getSession().setAttribute("USERNAME", username);
+					return "redirect:/perfil";
 
-			} else {
-				return "redirect:/login";
+				} else {
+					return "redirect:/login";
+				}
+			} catch (Exception e) {
+
 			}
-		} catch (Exception e) {
+			return "redirect:/login";
 
+		} else {
+			return "redirect:/perfil";
 		}
-		return "redirect:/login";
 
 	}
 

@@ -30,12 +30,10 @@ import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class PerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -95,11 +93,5 @@ public class PerfilController implements Serializable {
 		return "redirect:/";
 	}
 	
-	@GetMapping({"/buscar"})
-	public String aceptarAmigo(@RequestParam String busqueda, HttpServletRequest req, Model model) {
-		
-		String username = (String) req.getSession().getAttribute("USERNAME");
-		
-		return "redirect:/perfil/buscar";
-	}
+
 }
