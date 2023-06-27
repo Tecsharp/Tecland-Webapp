@@ -134,10 +134,7 @@ _breadcrumb {
 						<a href="<%=request.getContextPath()%>/"><button
 								class="tablinks">Inicio</button></a> <a
 							href="<%=request.getContextPath()%>/perfil"><button
-								class="tablinks">Perfil</button></a> <a
-							href="<%=request.getContextPath()%>/membresias"><button
-								class="tablinks">Membresías</button></a>
-					</div>
+								class="tablinks">Mi perfil</button></a>
 				</ol>
 			</nav>
 
@@ -160,8 +157,7 @@ _breadcrumb {
 									<div class="row">
 										<div class="col-sm-12">
 											<form th:action="@{/destroy}" method="post">
-												<button type="submit" class="btn-info">Cerrar
-													sesión</button>
+												<button type="submit" class="btn-info">Agrear amigo&nbsp;</button>
 											</form>
 										</div>
 									</div>
@@ -181,19 +177,7 @@ _breadcrumb {
 
 
 							<tr th:each="notificaciones : ${notificacionesLista}">
-								<li
-									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6></h6>
-									<h6 class="mb-0"
-										th:text="${notificaciones.notificacionMensaje}"></h6>
-									<form
-										th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud=' + ${notificaciones.usuarioId}"
-										class="navbar-search pull-left" method="post">
-										<button type="submit" name="userId" id="userId"
-											class="btn-info">Aceptar solicitud</button>
-									</form> <!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
-										-->
-								</li>
+								
 
 							</tr>
 						</ul>
@@ -207,13 +191,9 @@ _breadcrumb {
 					<div class="card mb-3">
 
 						<div class="tab">
-							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
-							<button id="Informacion-tab" class="tablinks"
-								onclick="openCity(event, 'Informacion')">Informacion</button>
-							<button id="Otros-tab" class="tablinks"
-								onclick="openCity(event, 'Otros')">Otros</button>
-							<button id="Amigos-tab" class="tablinks"
-								onclick="openCity(event, 'Amigos')">Amigos</button>
+							<button id="Cuenta-tab" class="tablinks"
+								onclick="openCity(event, 'Cuenta')">Información</button>
+							
 						</div>
 
 
@@ -232,9 +212,9 @@ _breadcrumb {
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Dinero</h6>
+										<h6 class="mb-0">Firma</h6>
 									</div>
-									<div class="col-sm-9 text-secondary">Pendiente</div>
+									<div class="col-sm-9 text-secondary">PendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendiente</div>
 								</div>
 								<hr>
 								<div class="row">
@@ -252,15 +232,7 @@ _breadcrumb {
 										th:text="@{${perfil.usuario.puntosTrabajoActual}}"></div>
 								</div>
 								<hr>
-								<div class="row">
-									<div class="col-sm-12">
-										<a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											dinero</a> <a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											VIP</a>
-									</div>
-								</div>
+								
 							</div>
 
 							<div id="Informacion" class="tabcontent">

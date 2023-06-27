@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,6 +92,16 @@ public class PerfilController implements Serializable {
 	public String destroySession(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/";
+	}
+	
+	
+	
+	@GetMapping("/{perfil}")
+	public String buscaPerfil(@PathVariable String perfil, Model model) {
+		
+		
+		
+		return "presentacion";
 	}
 	
 
