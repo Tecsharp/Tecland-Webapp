@@ -9,5 +9,5 @@ public class TeclandApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TeclandApplication.class, args);
 	}
-
+ 
 }

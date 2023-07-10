@@ -95,14 +95,14 @@ public class PerfilController implements Serializable {
 	}
 	
 	
-	
-	@GetMapping("/{perfil}")
-	public String buscaPerfil(@PathVariable String perfil, Model model) {
-		
-		
-		
-		return "presentacion";
-	}
+//	
+//	@GetMapping("/{perfil}")
+//	public String buscaPerfil(@PathVariable String perfil, Model model) {
+//		
+//		
+//		
+//		return "presentacion";
+//	}
 	
 
 }

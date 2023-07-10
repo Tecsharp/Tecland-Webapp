@@ -131,11 +131,11 @@ _breadcrumb {
 			<nav aria-label="breadcrumb" class="main-breadcrumb">
 				<ol class="breadcrumb">
 					<div class="tab">
-						<a href="<%=request.getContextPath()%>/"><button
-								class="tablinks">Inicio</button></a> <a
-							href="<%=request.getContextPath()%>/perfil"><button
+						<a th:href="@{/}"><button
+								class="tablinks">Inicio 2</button></a> <a
+							th:href="@{/perfil}"><button
 								class="tablinks">Perfil</button></a> <a
-							href="<%=request.getContextPath()%>/membresias"><button
+							th:href="@{/membresias}"><button
 								class="tablinks">Membresías</button></a>
 					</div>
 				</ol>
