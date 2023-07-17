@@ -9,6 +9,8 @@ public interface UsuarioService {
     Usuario login(String username, String password);
     
     Usuario findByUsername(String username);
+    
+    public void actualizarBiografia(String biografia, Integer id);
 
 
 }

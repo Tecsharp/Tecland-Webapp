@@ -10,6 +10,6 @@ public interface PerfilService {
 	
 	Perfil obtenerPerfilDeUsuario(String username);
 	
-
+	String actualizarBiografia(String biografia);
 
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+
 
 <head>
 <meta charset="utf-8">
@@ -157,6 +157,7 @@ _breadcrumb {
 										th:unless="${perfil.usuario.estadoConexion == 0}">Conectado</p>
 									<p class="text-muted font-size-sm"
 										th:text="@{${perfil.usuario.ultimaIp}}"></p>
+
 									<div class="row">
 										<div class="col-sm-12">
 											<form th:action="@{/destroy}" method="post">
@@ -183,7 +184,7 @@ _breadcrumb {
 							<tr th:each="notificaciones : ${notificacionesLista}">
 								<li
 									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6></h6>
+									
 									<h6 class="mb-0"
 										th:text="${notificaciones.notificacionMensaje}"></h6>
 									<form
@@ -244,6 +245,14 @@ _breadcrumb {
 									<div class="col-sm-9 text-secondary">Pendiente</div>
 								</div>
 								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Última Contexión</h6>
+									</div>
+									<div class="col-sm-9 text-secondary"
+										th:text="@{${perfil.ultimaCon}}"></div>
+								</div>
+								<hr>
 							  <div class="row">
 									<div class="col-sm-3">
 										<h6 class="mb-0">Puntos de trabajo</h6>
@@ -264,7 +273,48 @@ _breadcrumb {
 							</div>
 
 							<div id="Informacion" class="tabcontent">
-								<p>Informacion</p>
+								<p>Tu Informacion</p>
+
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Biografia</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+									
+									<textarea rows="8" cols="55" th:placeholder="@{${perfil.usuario.biografia}}" maxlength="500" name="biografia" id="biografia" form="usrform" ></textarea>
+									<form method="POST" enctype="multipart/form-data" th:action="@{/info/actualizar}" id="usrform">
+									<div id="contador">0/500</div>
+									<br>
+    								<button class="btn-info" type="submit" name="action" value="submitlines">Actualizar</button>
+									</form>
+									
+		
+									
+									<script>
+									
+									const mensaje = document.getElementById('biografia');
+									const contador = document.getElementById('contador');
+
+									mensaje.addEventListener('input', function(e) {
+									    const target = e.target;
+									    const longitudMax = target.getAttribute('maxlength');
+									    const longitudAct = target.value.length;
+									    contador.innerHTML = `${longitudAct}/${longitudMax}`;
+									});
+									
+									</script>
+									
+									
+									</div>
+								</div>
+								
+								
+								
+								<br>
+
+								
+								
+								
 							</div>
 
 							<div id="Otros" class="tabcontent">

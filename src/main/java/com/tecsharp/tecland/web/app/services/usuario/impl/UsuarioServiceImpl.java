@@ -53,5 +53,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuario;
 	}
 
+	@Override
+	public void actualizarBiografia(String biografia, Integer id) {
+		usuarioRepository.actualizarBiografia(biografia, id);
+		
+	}
+
 
 }

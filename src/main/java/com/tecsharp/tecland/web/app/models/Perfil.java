@@ -17,5 +17,6 @@ public class Perfil {
 	private String imageUrl;
 	private ArrayList<Trabajo> trabajosActivos;
 	private ArrayList<Trabajo> trabajosNoActivos;
+	private String ultimaCon;
 	
 }

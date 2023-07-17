@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+
 
 <head>
 <meta charset="utf-8">
@@ -131,10 +131,13 @@ _breadcrumb {
 			<nav aria-label="breadcrumb" class="main-breadcrumb">
 				<ol class="breadcrumb">
 					<div class="tab">
-						<a href="<%=request.getContextPath()%>/"><button
-								class="tablinks">Inicio</button></a> <a
-							href="<%=request.getContextPath()%>/perfil"><button
-								class="tablinks">Mi perfil</button></a>
+						<a th:href="@{/}"><button
+								class="tablinks">Inicio 2</button></a> <a
+							th:href="@{/perfil}"><button
+								class="tablinks">Perfil</button></a> <a
+							th:href="@{/membresias}"><button
+								class="tablinks">Membresías</button></a>
+					</div>
 				</ol>
 			</nav>
 
@@ -154,10 +157,12 @@ _breadcrumb {
 										th:unless="${perfil.usuario.estadoConexion == 0}">Conectado</p>
 									<p class="text-muted font-size-sm"
 										th:text="@{${perfil.usuario.ultimaIp}}"></p>
+
 									<div class="row">
 										<div class="col-sm-12">
 											<form th:action="@{/destroy}" method="post">
-												<button type="submit" class="btn-info">Agrear amigo&nbsp;</button>
+												<button type="submit" class="btn-info">Cerrar
+													sesión</button>
 											</form>
 										</div>
 									</div>
@@ -177,7 +182,19 @@ _breadcrumb {
 
 
 							<tr th:each="notificaciones : ${notificacionesLista}">
-								
+								<li
+									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+									
+									<h6 class="mb-0"
+										th:text="${notificaciones.notificacionMensaje}"></h6>
+									<form
+										th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud=' + ${notificaciones.usuarioId}"
+										class="navbar-search pull-left" method="post">
+										<button type="submit" name="userId" id="userId"
+											class="btn-info">Aceptar solicitud</button>
+									</form> <!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
+										-->
+								</li>
 
 							</tr>
 						</ul>
@@ -191,9 +208,13 @@ _breadcrumb {
 					<div class="card mb-3">
 
 						<div class="tab">
-							<button id="Cuenta-tab" class="tablinks"
-								onclick="openCity(event, 'Cuenta')">Información</button>
-							
+							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
+							<button id="Informacion-tab" class="tablinks"
+								onclick="openCity(event, 'Informacion')">Informacion</button>
+							<button id="Otros-tab" class="tablinks"
+								onclick="openCity(event, 'Otros')">Otros</button>
+							<button id="Amigos-tab" class="tablinks"
+								onclick="openCity(event, 'Amigos')">Amigos</button>
 						</div>
 
 
@@ -204,39 +225,78 @@ _breadcrumb {
 
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Usuario</h6>
+										<h6 class="mb-0">Biografia</h6>
 									</div>
-									<div class="col-sm-9 text-secondary"
-										th:text="@{${perfil.usuario.username}}"></div>
+									<div class="col-sm-9">
+									
+									<p th:text="@{${perfil.usuario.biografia}}"></p>
+									
+									</div>
 								</div>
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Firma</h6>
+										<h6 class="mb-0">Última Contexión</h6>
 									</div>
-									<div class="col-sm-9 text-secondary">PendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendientePendiente</div>
+									<div class="col-sm-9 "
+										th:text="@{${perfil.ultimaCon}}"></div>
 								</div>
 								<hr>
+
 								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Correo</h6>
+									<div class="col-sm-12">
+										<a class="btn btn-info " target="__blank"
+											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
+											dinero</a> <a class="btn btn-info " target="__blank"
+											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
+											VIP</a>
 									</div>
-									<div class="col-sm-9 text-secondary">Pendiente</div>
 								</div>
-								<hr>
-							  <div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Puntos de trabajo</h6>
-									</div>
-									<div class="col-sm-9 text-secondary"
-										th:text="@{${perfil.usuario.puntosTrabajoActual}}"></div>
-								</div>
-								<hr>
-								
 							</div>
 
 							<div id="Informacion" class="tabcontent">
-								<p>Informacion</p>
+								<p>Tu Informacion</p>
+
+								<div class="row">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Biografia</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+									
+									<textarea rows="8" cols="55" th:placeholder="@{${perfil.usuario.biografia}}" maxlength="500" name="biografia" id="biografia" form="usrform" ></textarea>
+									<form method="POST" enctype="multipart/form-data" th:action="@{/info/actualizar}" id="usrform">
+									<div id="contador">0/500</div>
+									<br>
+    								<button class="btn-info" type="submit" name="action" value="submitlines">Actualizar</button>
+									</form>
+									
+		
+									
+									<script>
+									
+									const mensaje = document.getElementById('biografia');
+									const contador = document.getElementById('contador');
+
+									mensaje.addEventListener('input', function(e) {
+									    const target = e.target;
+									    const longitudMax = target.getAttribute('maxlength');
+									    const longitudAct = target.value.length;
+									    contador.innerHTML = `${longitudAct}/${longitudMax}`;
+									});
+									
+									</script>
+									
+									
+									</div>
+								</div>
+								
+								
+								
+								<br>
+
+								
+								
+								
 							</div>
 
 							<div id="Otros" class="tabcontent">

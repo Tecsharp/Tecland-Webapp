@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("")
-public class PerfilController implements Serializable {
+public class UsuarioPerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,62 +60,33 @@ public class PerfilController implements Serializable {
 	@Autowired
 	private NotificacionService notificacionService;
 
-	@GetMapping({ "/perfil" })
-	public String toPerfil(HttpServletRequest req, Model model) throws ServletException, IOException {
+	@GetMapping({ "/{username}" })
+	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username) throws ServletException, IOException {
 
-		String username = (String) req.getSession().getAttribute("USERNAME");
-		req.getSession().setAttribute("USERNAME", username);
+		
 		if (username != null) {
 
 			try {
 
-				Perfil perfil = perfilService
-						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
+				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
 				model.addAttribute("perfil", perfil);
 				model.addAttribute("trabajosActivos",
 						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
 				model.addAttribute("trabajosNoActivos",
 						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
 
-				ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(perfil.getUsuario().getId());
-				model.addAttribute("amigosLista", amigosLista);
-
-				ArrayList<Notificacion> notificacionesLista = notificacionService
-						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
-				req.setAttribute("notificacionesLista", notificacionesLista);
+				
 
 			} catch (Exception e) {
-				return "redirect:/login";
+				//return "redirect:/login";
 			}
-			return "perfil";
+			return "userp";
 
 		} else {
 			return "redirect:/login";
 		}
 	}
 
-	@PostMapping("/destroy")
-	public String destroySession(HttpServletRequest request) {
-		request.getSession().invalidate();
-		return "redirect:/";
-	}
 
-	@PostMapping("/info/actualizar")
-	public String actualizarInformacionPerfil(HttpServletRequest req, @RequestParam String biografia) {
-
-		Integer id = (Integer) req.getSession().getAttribute("ID");
-		usuarioService.actualizarBiografia(biografia, id);
-
-		return "redirect:/perfil";
-	}
-
-//	
-//	@GetMapping("/{perfil}")
-//	public String buscaPerfil(@PathVariable String perfil, Model model) {
-//		
-//		
-//		
-//		return "presentacion";
-//	}
 
 }

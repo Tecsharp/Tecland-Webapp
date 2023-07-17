@@ -46,6 +46,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 usuario.setCorreo(result.getString("email"));
                 usuario.setUltimaIp(result.getString("ip"));
                 usuario.setEstadoConexion(result.getInt("isLogged"));
+                usuario.setUltimaConexion(result.getLong("lastlogin"));
+                usuario.setBiografia(result.getString("biografia"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +156,25 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
 
     }
+
+	@Override
+	public void actualizarBiografia(String biografia, Integer id) {
+
+        String query = "UPDATE authme SET biografia = ? WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, biografia); //Biografia
+            statement.setInt(2, id); //Biografia
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        }
+		
+	}
 
 
 }

@@ -12,4 +12,6 @@ public interface UsuarioRepository {
     boolean registrarUsuario(String nombre, String apellido, String email, String username, String password);
 
     String obtenerPasswordHashed(String username);
+    
+    public void actualizarBiografia(String biografia, Integer id);
 }

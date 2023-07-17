@@ -27,7 +27,9 @@ public class Usuario implements Serializable {
 
     //AUTHME PLUGIN //
     private String ultimaIp;
+    private Long ultimaConexion;
     private Integer estadoConexion;
+    private String biografia;
 
 
 }
