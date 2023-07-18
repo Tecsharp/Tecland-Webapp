@@ -155,17 +155,65 @@ _breadcrumb {
 										th:if="${perfil.usuario.estadoConexion == 0}">Desconectado</p>
 									<p class="text-secondary mb-1"
 										th:unless="${perfil.usuario.estadoConexion == 0}">Conectado</p>
-									<p class="text-muted font-size-sm"
-										th:text="@{${perfil.usuario.ultimaIp}}"></p>
 
-									<div class="row">
-										<div class="col-sm-12">
+									<div class="row" th:if="${userLoggedId == null}">
+										<div class="col-sm-12" >
 											<form th:action="@{/destroy}" method="post">
-												<button type="submit" class="btn-info">Cerrar
-													sesión</button>
 											</form>
 										</div>
 									</div>
+									<div class="row" th:unless="${userLoggedId == null}">
+										
+										<div class="col-sm-12" th:each="amigos : ${listaBusquedaAmigos}">
+											
+											<div class="col-sm-12" th:if="${amigos.isFriend == true}">
+														<div class="search-container">
+															<form
+																th:action="@{/eliminar-amigo} + '?idUsuarioSolicitud='+ ${amigos.id}"
+																class="navbar-search pull-left" method="post">
+																<button type="submit" name="userId" id="userId"
+																	class="btn-info">Eliminar</button>
+															</form>
+														</div>
+											</div>
+											
+											
+											<div class="col-sm-12" th:if="${amigos.solicitudPendiente == true}">
+												<div class="col-sm-12">
+													<div class="search-container">
+														<form th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud='+ ${amigos.id}" class="navbar-search pull-left" method="post">
+															<button type="submit" name="userId" id="userId" class="btn-info">Aceptar solicitud</button>
+														</form>
+													</div>
+												</div>
+											</div>
+											
+											<div class="col-sm-12" th:if="${amigos.solicitudEnviada == true}">
+												<div class="search-container">
+													<form th:action="@{/cancelar-solicitud} + '?idUsuarioSolicitud='+ ${amigos.id}" class="navbar-search pull-left" method="post">
+														<button type="submit" name="userId" id="userId" class="btn-info">Cancelar solicitud</button>
+													</form>
+												</div>
+											</div>
+											
+											<div class="col-sm-12" th:if="${perfil.usuario.id == amigos.id}"></div>
+											
+											<div class="col-sm-12" th:if="${amigos.isFriend == false and userLoggedId != amigos.id and amigos.solicitudEnviada == false and amigos.solicitudPendiente == false}">
+												<div class="search-container">
+													<form th:action="@{/agregar-amigo} + '?userId='+ ${amigos.id} + '&username='+ ${perfil.usuario.username}" class="navbar-search pull-left" method="POST">
+														<button type="submit" name="userId" id="userId" class="btn-info">Agregar</button>
+													</form>
+												</div>
+											</div>
+											
+											
+											
+											
+										</div>
+										
+									</div>
+									
+									
 								</div>
 							</div>
 						</div>
@@ -208,11 +256,7 @@ _breadcrumb {
 					<div class="card mb-3">
 
 						<div class="tab">
-							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
-							<button id="Informacion-tab" class="tablinks"
-								onclick="openCity(event, 'Informacion')">Informacion</button>
-							<button id="Otros-tab" class="tablinks"
-								onclick="openCity(event, 'Otros')">Otros</button>
+							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Informacion</button>
 							<button id="Amigos-tab" class="tablinks"
 								onclick="openCity(event, 'Amigos')">Amigos</button>
 						</div>
@@ -236,72 +280,16 @@ _breadcrumb {
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<h6 class="mb-0">Última Contexión</h6>
+										<h6 class="mb-0">Última Conexión</h6>
 									</div>
 									<div class="col-sm-9 "
 										th:text="@{${perfil.ultimaCon}}"></div>
 								</div>
 								<hr>
 
-								<div class="row">
-									<div class="col-sm-12">
-										<a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											dinero</a> <a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											VIP</a>
-									</div>
-								</div>
+
 							</div>
 
-							<div id="Informacion" class="tabcontent">
-								<p>Tu Informacion</p>
-
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Biografia</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">
-									
-									<textarea rows="8" cols="55" th:placeholder="@{${perfil.usuario.biografia}}" maxlength="500" name="biografia" id="biografia" form="usrform" ></textarea>
-									<form method="POST" enctype="multipart/form-data" th:action="@{/info/actualizar}" id="usrform">
-									<div id="contador">0/500</div>
-									<br>
-    								<button class="btn-info" type="submit" name="action" value="submitlines">Actualizar</button>
-									</form>
-									
-		
-									
-									<script>
-									
-									const mensaje = document.getElementById('biografia');
-									const contador = document.getElementById('contador');
-
-									mensaje.addEventListener('input', function(e) {
-									    const target = e.target;
-									    const longitudMax = target.getAttribute('maxlength');
-									    const longitudAct = target.value.length;
-									    contador.innerHTML = `${longitudAct}/${longitudMax}`;
-									});
-									
-									</script>
-									
-									
-									</div>
-								</div>
-								
-								
-								
-								<br>
-
-								
-								
-								
-							</div>
-
-							<div id="Otros" class="tabcontent">
-								<p>Otros</p>
-							</div>
 
 							<div id="Amigos" class="tabcontent">
 
@@ -418,8 +406,7 @@ _breadcrumb {
 						<div class="col-sm-6 mb-3">
 							<div class="card h-100">
 								<div class="card-body">
-									<h6 class="d-flex align-items-center mb-3">Trabajos no
-										activos</h6>
+									<h6 class="d-flex align-items-center mb-3">Logros</h6>
 
 									<tr th:each="trabajos : ${trabajosNoActivos}">
 										<small><img

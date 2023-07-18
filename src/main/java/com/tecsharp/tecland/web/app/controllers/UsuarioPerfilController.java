@@ -62,7 +62,21 @@ public class UsuarioPerfilController implements Serializable {
 
 	@GetMapping({ "/{username}" })
 	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username) throws ServletException, IOException {
+		
+		Integer id = (Integer) req.getSession().getAttribute("ID");
+		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
+		
+		model.addAttribute("usernameLogged", usernameLogged);
+		model.addAttribute("userLoggedId", id);
+		ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
+		model.addAttribute("amigosLista", amigosLista);
 
+		ArrayList<Notificacion> notificacionesLista = notificacionService
+				.obtenerNotificacionesUsuario(id);
+		req.setAttribute("notificacionesLista", notificacionesLista);
+		
+		ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
+		req.setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
 		
 		if (username != null) {
 
@@ -70,10 +84,8 @@ public class UsuarioPerfilController implements Serializable {
 
 				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
 				model.addAttribute("perfil", perfil);
-				model.addAttribute("trabajosActivos",
-						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
-				model.addAttribute("trabajosNoActivos",
-						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
+				model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
+				model.addAttribute("trabajosNoActivos", trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
 
 				
 
