@@ -153,7 +153,7 @@ _breadcrumb {
 				<ol class="breadcrumb">
 					<div class="tab">
 						<a th:href="@{/}"><button
-								class="tablinks">Inicio 2</button></a> <a
+								class="tablinks">Inicio</button></a> <a
 							th:href="@{/perfil}"><button
 								class="tablinks">Perfil</button></a> <a
 							th:href="@{/membresias}"><button
@@ -410,6 +410,7 @@ _breadcrumb {
 							<h6 class="col-md-8" >Logros</h6>
 							
 							<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
+							<hr>
 								<div class="container2">
 								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
 								  <div class="Logro row" th:text="${logros.achievement}"></div>
@@ -419,7 +420,7 @@ _breadcrumb {
 								</div>
 								
 								
-								<hr>
+								
 							</div>
 							
 						</div>

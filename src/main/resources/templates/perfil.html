@@ -121,6 +121,24 @@ _breadcrumb {
 	background-color: #ffffff;
 	border-radius: 0.25rem;
 }
+
+.container2 {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "IMG Logro Fecha"
+    "IMG Description Fecha"
+    "IMG Description Estado"; 
+}
+.IMG { grid-area: IMG; }
+.Logro { grid-area: Logro; }
+.Obtenido { grid-area: Obtenido; }
+.Fecha { grid-area: Fecha; }
+.Estado { grid-area: Estado; }
+.Description { grid-area: Description; }
+
 </style>
 </head>
 
@@ -132,7 +150,7 @@ _breadcrumb {
 				<ol class="breadcrumb">
 					<div class="tab">
 						<a th:href="@{/}"><button
-								class="tablinks">Inicio 2</button></a> <a
+								class="tablinks">Inicio</button></a> <a
 							th:href="@{/perfil}"><button
 								class="tablinks">Perfil</button></a> <a
 							th:href="@{/membresias}"><button
@@ -211,8 +229,8 @@ _breadcrumb {
 							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
 							<button id="Informacion-tab" class="tablinks"
 								onclick="openCity(event, 'Informacion')">Informacion</button>
-							<button id="Otros-tab" class="tablinks"
-								onclick="openCity(event, 'Otros')">Otros</button>
+							<button id="Logros-tab" class="tablinks"
+								onclick="openCity(event, 'Logros')">Logros</button>
 							<button id="Amigos-tab" class="tablinks"
 								onclick="openCity(event, 'Amigos')">Amigos</button>
 						</div>
@@ -317,8 +335,21 @@ _breadcrumb {
 								
 							</div>
 
-							<div id="Otros" class="tabcontent">
-								<p>Otros</p>
+							<div id="Logros" class="tabcontent">
+								
+								<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
+								
+								<hr>
+								<div class="container2">
+								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
+								  <div class="Logro row" th:text="${logros.achievement}"></div>
+								  <div class="Fecha row" th:text="'Logro conseguido el ' + ${logros.date}"></div>
+								  <div class="Estado row" th:text="${logros.estado}"></div>
+								  <div class="Description row" th:text="${logros.descripcion}"></div>
+								</div>
+								
+							</div>
+
 							</div>
 
 							<div id="Amigos" class="tabcontent">

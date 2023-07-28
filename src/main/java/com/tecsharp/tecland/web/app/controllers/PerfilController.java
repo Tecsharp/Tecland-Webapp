@@ -3,6 +3,7 @@ package com.tecsharp.tecland.web.app.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
+import com.tecsharp.tecland.web.app.models.Logro;
 import com.tecsharp.tecland.web.app.models.Notificacion;
 import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.models.Usuario;
@@ -71,7 +73,24 @@ public class PerfilController implements Serializable {
 
 				Perfil perfil = perfilService
 						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
+				
+			
+				
+				List<Logro> listaLogros = perfil.getLogros();
+				for(Logro  lista : listaLogros) {
+					
+					if(lista.getDbname().equals("place_50_chest")) {
+						listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
+
+					}
+				
+					
+				}
+
+
 				model.addAttribute("perfil", perfil);
+				model.addAttribute("logrosListaUser", perfil.getLogros());
+				
 				model.addAttribute("trabajosActivos",
 						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
 				model.addAttribute("trabajosNoActivos",
