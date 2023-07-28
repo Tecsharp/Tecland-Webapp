@@ -83,6 +83,11 @@ public class PerfilController implements Serializable {
 				ArrayList<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
+				
+				
+				model.addAttribute("perfilUsuarioUsername", perfil.getUsuario().getUsername());
+				model.addAttribute("perfilImageUrl", perfil.getImageUrl());
+				
 
 			} catch (Exception e) {
 				return "redirect:/login";

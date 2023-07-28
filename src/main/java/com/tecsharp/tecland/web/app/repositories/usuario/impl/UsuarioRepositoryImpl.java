@@ -54,7 +54,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         }
 
 
-        assert usuario != null;
+        
 
 
 

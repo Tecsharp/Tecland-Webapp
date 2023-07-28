@@ -146,17 +146,17 @@ _breadcrumb {
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<img th:src="@{${perfil.imageUrl}}"
-									th:alt="@{${perfil.usuario.username}}" class="rounded-circle"
+								<img th:src="@{${perfilImageUrl}}"
+									th:alt="${perfilUsuarioUsername}" class="rounded-circle"
 									width="150" />
 								<div class="mt-3">
-									<h4 th:text="@{${perfil.usuario.username}}"></h4>
+									<h4 th:text="${perfilUsuarioUsername}"></h4>
 									<p class="text-secondary mb-1"
 										th:if="${perfil.usuario.estadoConexion == 0}">Desconectado</p>
 									<p class="text-secondary mb-1"
 										th:unless="${perfil.usuario.estadoConexion == 0}">Conectado</p>
 									<p class="text-muted font-size-sm"
-										th:text="@{${perfil.usuario.ultimaIp}}"></p>
+										th:text="${perfil.usuario.ultimaIp}"></p>
 
 									<div class="row">
 										<div class="col-sm-12">
@@ -228,7 +228,7 @@ _breadcrumb {
 										<h6 class="mb-0">Usuario</h6>
 									</div>
 									<div class="col-sm-9 text-secondary"
-										th:text="@{${perfil.usuario.username}}"></div>
+										th:text="${perfilUsuarioUsername}"></div>
 								</div>
 								<hr>
 								<div class="row">
@@ -250,7 +250,7 @@ _breadcrumb {
 										<h6 class="mb-0">Última Conexión</h6>
 									</div>
 									<div class="col-sm-9 text-secondary"
-										th:text="@{${perfil.ultimaCon}}"></div>
+										th:text="${perfil.ultimaCon}"></div>
 								</div>
 								<hr>
 							  <div class="row">

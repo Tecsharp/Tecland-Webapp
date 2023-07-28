@@ -61,7 +61,7 @@ public class LoginController implements Serializable {
 				if (usuario != null) {
 
 					req.getSession().setAttribute("ID", usuario.getId());
-					req.getSession().setAttribute("USERNAME", username);
+					req.getSession().setAttribute("USERNAME", usuario.getUsername());
 					return "redirect:/perfil";
 
 				} else {

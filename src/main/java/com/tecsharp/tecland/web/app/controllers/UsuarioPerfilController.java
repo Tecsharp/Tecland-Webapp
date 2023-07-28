@@ -63,6 +63,10 @@ public class UsuarioPerfilController implements Serializable {
 	@GetMapping({ "/{username}" })
 	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username) throws ServletException, IOException {
 		
+		if(username.equals("perfil") || username.equals("Perfil")) {
+			return "redirect:/perfil";
+		}
+		
 		Integer id = (Integer) req.getSession().getAttribute("ID");
 		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
 		
@@ -71,12 +75,16 @@ public class UsuarioPerfilController implements Serializable {
 		ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
 		model.addAttribute("amigosLista", amigosLista);
 
-		ArrayList<Notificacion> notificacionesLista = notificacionService
-				.obtenerNotificacionesUsuario(id);
-		req.setAttribute("notificacionesLista", notificacionesLista);
+		
+		
+		ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
+		//req.getSession().setAttribute("notificacionesLista", notificacionesLista);
+		model.addAttribute("notificacionesLista", notificacionesLista);
 		
 		ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
-		req.setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
+		//req.getSession().setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
+		model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
+		
 		
 		if (username != null) {
 
@@ -84,6 +92,7 @@ public class UsuarioPerfilController implements Serializable {
 
 				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
 				model.addAttribute("perfil", perfil);
+				model.addAttribute("logrosListaUser", perfil.getLogros());
 				model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
 				model.addAttribute("trabajosNoActivos", trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
 

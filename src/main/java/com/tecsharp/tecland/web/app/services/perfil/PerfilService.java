@@ -1,5 +1,7 @@
 package com.tecsharp.tecland.web.app.services.perfil;
 
+import java.util.Date;
+
 import com.tecsharp.tecland.web.app.models.Perfil;
 
 public interface PerfilService {
@@ -11,5 +13,7 @@ public interface PerfilService {
 	Perfil obtenerPerfilDeUsuario(String username);
 	
 	String actualizarBiografia(String biografia);
+	
+	public String convertirDateToString(Date fecha);
 
 }

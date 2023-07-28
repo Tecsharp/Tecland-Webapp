@@ -121,6 +121,27 @@ _breadcrumb {
 	background-color: #ffffff;
 	border-radius: 0.25rem;
 }
+
+
+
+.container2 {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "IMG Logro Fecha"
+    "IMG Description Fecha"
+    "IMG Description Estado"; 
+}
+.IMG { grid-area: IMG; }
+.Logro { grid-area: Logro; }
+.Obtenido { grid-area: Obtenido; }
+.Fecha { grid-area: Fecha; }
+.Estado { grid-area: Estado; }
+.Description { grid-area: Description; }
+
+
 </style>
 </head>
 
@@ -349,6 +370,13 @@ _breadcrumb {
 								</table>
 
 							</div>
+							
+							
+							
+							
+							
+							
+							
 
 							<script>
 								function openCity(evt, cityName) {
@@ -375,6 +403,82 @@ _breadcrumb {
 
 						</div>
 					</div>
+					
+					
+					<div class="card mb-3">
+						<div class="card-body">
+							<h6 class="col-md-8" >Logros</h6>
+							
+							<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
+								<div class="container2">
+								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
+								  <div class="Logro row" th:text="${logros.achievement}"></div>
+								  <div class="Fecha row" th:text="'Logro conseguido el ' + ${logros.date}"></div>
+								  <div class="Estado row">Completo</div>
+								  <div class="Description row" th:text="${logros.descripcion}"></div>
+								</div>
+								<hr>
+							</div>
+							
+						</div>
+					</div>
+					
+					
+					<!-- 
+					<div class="card mb-3">
+					<div class="col-md-8" th:each="logros : ${logrosListaUser}">
+					<div class="divTable">
+					<div class="divTableBody">
+					<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;OBTENIDO EL:</div>
+					</div>
+					<div class="divTableRow">
+					<div class="divTableCell"><img th:src="@{${logros.url}}"
+									th:alt="@{${perfil.usuario.username}}" width="60" /></div>
+					<div class="divTableCell" th:text="${logros.achievement}"></div>
+					<div class="divTableCell" th:text=" 'Obtenido el: ' + ${logros.date}"></div>
+					</div>
+					<div class="divTableRow">
+					<div class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;</div>
+					<div class="divTableCell">&nbsp;Restante //</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					
+					
+						<div class="card mb-3">
+							<div class="col-md-8" th:each="logros : ${logrosListaUser}">
+							<div class="divTable">
+								<div class="divTableBody">
+								<div class="divTableRow">
+								<div class="divTableCell"><img th:src="@{${logros.url}}"
+									th:alt="@{${perfil.usuario.username}}" width="60" /></div>
+								<div class="divTableCell" th:text="${logros.achievement}"></div>
+								<div class="divTableCell" th:text=" 'Obtenido el: ' + ${logros.date}"></div>
+								</div>
+								</div>
+								</div>
+								<hr>
+							</div>
+
+								
+						</div>
+						-->
+						
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					<div class="row gutters-sm">
 						<div class="col-sm-6 mb-3">
 							<div class="card h-100">
@@ -406,7 +510,7 @@ _breadcrumb {
 						<div class="col-sm-6 mb-3">
 							<div class="card h-100">
 								<div class="card-body">
-									<h6 class="d-flex align-items-center mb-3">Logros</h6>
+									<h6 class="d-flex align-items-center mb-3">Estadisticas</h6>
 
 									<tr th:each="trabajos : ${trabajosNoActivos}">
 										<small><img
@@ -428,6 +532,13 @@ _breadcrumb {
 						</div>
 					</div>
 				</div>
+				
+				
+				
+				
+				
+				
+				
 			</div>
 		</div>
 	</div>

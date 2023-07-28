@@ -18,5 +18,6 @@ public class Perfil {
 	private ArrayList<Trabajo> trabajosActivos;
 	private ArrayList<Trabajo> trabajosNoActivos;
 	private String ultimaCon;
+	private List<Logro> logros; //SELECCIONAR DESDE BASE DE DATOS EL NOMBRE DE LOS LOGROS
 	
 }
