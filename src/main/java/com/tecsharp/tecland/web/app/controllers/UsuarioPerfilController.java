@@ -3,6 +3,8 @@ package com.tecsharp.tecland.web.app.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
+import com.tecsharp.tecland.web.app.models.Logro;
 import com.tecsharp.tecland.web.app.models.Notificacion;
 import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.models.Usuario;
@@ -61,53 +64,59 @@ public class UsuarioPerfilController implements Serializable {
 	private NotificacionService notificacionService;
 
 	@GetMapping({ "/{username}" })
-	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username) throws ServletException, IOException {
-		
-		if(username.equals("perfil") || username.equals("Perfil")) {
+	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username)
+			throws ServletException, IOException {
+
+		if (username.equals("perfil") || username.equals("Perfil")) {
 			return "redirect:/perfil";
 		}
-		
+
 		Integer id = (Integer) req.getSession().getAttribute("ID");
 		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
-		
+
 		model.addAttribute("usernameLogged", usernameLogged);
 		model.addAttribute("userLoggedId", id);
-		ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
-		model.addAttribute("amigosLista", amigosLista);
+		if (id != null) {
+			ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
+			model.addAttribute("amigosLista", amigosLista);
 
-		
-		
-		ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
-		//req.getSession().setAttribute("notificacionesLista", notificacionesLista);
-		model.addAttribute("notificacionesLista", notificacionesLista);
-		
-		ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
-		//req.getSession().setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
-		model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
-		
-		
-		if (username != null) {
+			ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
+			// req.getSession().setAttribute("notificacionesLista", notificacionesLista);
+			model.addAttribute("notificacionesLista", notificacionesLista);
 
-			try {
+			ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
+			// req.getSession().setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); //
+			// SE ENVIA AL REQUEST
+			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
+		}
 
-				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
-				model.addAttribute("perfil", perfil);
-				model.addAttribute("logrosListaUser", perfil.getLogros());
-				model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
-				model.addAttribute("trabajosNoActivos", trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
+		try {
 
+			Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
+			
+			List<Logro> listaLogros = perfil.getLogros();
+			for(Logro  lista : listaLogros) {
 				
+				if(lista.getDbname().equals("place_50_chest")) {
+					listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
 
-			} catch (Exception e) {
-				//return "redirect:/login";
+				}
+			
+				
 			}
-			return "userp";
 
-		} else {
+
+			model.addAttribute("perfil", perfil);
+
+			model.addAttribute("logrosListaUser", perfil.getLogros());
+			model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
+			model.addAttribute("trabajosNoActivos",
+					trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
+
+		} catch (Exception e) {
 			return "redirect:/login";
 		}
+		return "userp";
 	}
-
-
 
 }

@@ -46,31 +46,56 @@ public class LogrosRepositoryImpl implements LogrosRepository{
                 Date date = result.getDate("date");
                 
                 if(achievement.equals("distancefoot_1000") || achievement.equals("connect_1") || 
-                		achievement.equals("maxlevel_10") || achievement.equals("kills_1_zombie")) {
+                		achievement.equals("maxlevel_10") || achievement.equals("kills_1_zombie")|| 
+                		achievement.equals("place_5_chest") || achievement.equals("place_50_chest")
+                		
+                		) {
                 
                 	if(achievement.equals("distancefoot_1000")){
+                		logro.setDbname(achievement);
                 		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/10.png");
                 		logro.setAchievement("El caminante");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Recorrer 1000 bloques");
+                		logro.setEstado("Completo");
                 		
                 	} else if(achievement.equals("connect_1")){
+                		logro.setDbname(achievement);
                 		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
                 		logro.setAchievement("La Bienvenida");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Conexión por primera vez");
+                		logro.setEstado("Completo");
                 		
                 	} else if(achievement.equals("maxlevel_10")){
+                		logro.setDbname(achievement);
                 		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
                 		logro.setAchievement("Nivel 10");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Llega al nivel 10");
+                		logro.setEstado("Completo");
                 		
                 	} else if(achievement.equals("kills_1_zombie")){
+                		logro.setDbname(achievement);
                 		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
                 		logro.setAchievement("Mata Podridos");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Mata tu primer zombie");
+                		logro.setEstado("Completo");
+                	} else if(achievement.equals("place_5_chest")){
+                		logro.setDbname(achievement);
+                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setAchievement("Bodeguero");
+                		logro.setDate(perfilService.convertirDateToString(date));
+                		logro.setDescripcion("Coloca 5 cofres");
+                		logro.setEstado("5/50");
+                	} else if(achievement.equals("place_50_chest")){
+                		logro.setDbname(achievement);
+                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setAchievement("Maestro en Tetris");
+                		logro.setDate(perfilService.convertirDateToString(date));
+                		logro.setDescripcion("Coloca 50 cofres");
+                		logro.setEstado("50/50 | Completo");
                 	}
                 	
                 	listaLogros.add(logro);

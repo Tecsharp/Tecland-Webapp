@@ -414,70 +414,18 @@ _breadcrumb {
 								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
 								  <div class="Logro row" th:text="${logros.achievement}"></div>
 								  <div class="Fecha row" th:text="'Logro conseguido el ' + ${logros.date}"></div>
-								  <div class="Estado row">Completo</div>
+								  <div class="Estado row" th:text="${logros.estado}"></div>
 								  <div class="Description row" th:text="${logros.descripcion}"></div>
 								</div>
+								
+								
 								<hr>
 							</div>
 							
 						</div>
 					</div>
 					
-					
-					<!-- 
-					<div class="card mb-3">
-					<div class="col-md-8" th:each="logros : ${logrosListaUser}">
-					<div class="divTable">
-					<div class="divTableBody">
-					<div class="divTableRow">
-					<div class="divTableCell">&nbsp;</div>
-					<div class="divTableCell">&nbsp;</div>
-					<div class="divTableCell">&nbsp;OBTENIDO EL:</div>
-					</div>
-					<div class="divTableRow">
-					<div class="divTableCell"><img th:src="@{${logros.url}}"
-									th:alt="@{${perfil.usuario.username}}" width="60" /></div>
-					<div class="divTableCell" th:text="${logros.achievement}"></div>
-					<div class="divTableCell" th:text=" 'Obtenido el: ' + ${logros.date}"></div>
-					</div>
-					<div class="divTableRow">
-					<div class="divTableCell">&nbsp;</div>
-					<div class="divTableCell">&nbsp;</div>
-					<div class="divTableCell">&nbsp;Restante //</div>
-					</div>
-					</div>
-					</div>
-					</div>
-					</div>
-					
-					
-						<div class="card mb-3">
-							<div class="col-md-8" th:each="logros : ${logrosListaUser}">
-							<div class="divTable">
-								<div class="divTableBody">
-								<div class="divTableRow">
-								<div class="divTableCell"><img th:src="@{${logros.url}}"
-									th:alt="@{${perfil.usuario.username}}" width="60" /></div>
-								<div class="divTableCell" th:text="${logros.achievement}"></div>
-								<div class="divTableCell" th:text=" 'Obtenido el: ' + ${logros.date}"></div>
-								</div>
-								</div>
-								</div>
-								<hr>
-							</div>
 
-								
-						</div>
-						-->
-						
-					
-					
-					
-					
-					
-					
-					
-					
 					
 					<div class="row gutters-sm">
 						<div class="col-sm-6 mb-3">

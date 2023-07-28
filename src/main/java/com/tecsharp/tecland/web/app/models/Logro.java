@@ -10,8 +10,10 @@ public class Logro {
 	private String uuid;
 	private String username;
 	private String achievement;
+	private String dbname;
 	private String date;
 	private String url;
 	private String descripcion;
+	private String estado;
 
 }
