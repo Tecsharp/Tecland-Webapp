@@ -67,7 +67,7 @@ public class UsuarioPerfilController implements Serializable {
 	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username)
 			throws ServletException, IOException {
 
-		if (username.equals("perfil") || username.equals("Perfil")) {
+		if (username.equals("perfil") || username.equals("Perfil") || username.equals("favicon.ico") || username.equals("login") || username.equals("Login")) {
 			return "redirect:/perfil";
 		}
 
@@ -93,6 +93,10 @@ public class UsuarioPerfilController implements Serializable {
 		try {
 
 			Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
+			
+			if(perfil == null) {
+				return "redirect:/login";
+			}
 			
 			List<Logro> listaLogros = perfil.getLogros();
 			for(Logro  lista : listaLogros) {
