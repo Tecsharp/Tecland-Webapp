@@ -11,16 +11,19 @@ import com.tecsharp.tecland.web.app.services.login.LoginService;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 
 
 @Component
 @Qualifier("loginService")
 public class LoginServiceImpl implements LoginService {
+	
+	@Autowired
+	private UsuarioRepository userRepo;
+	
     @Override
     public Optional<String> getUsername(HttpServletRequest request) {
         return Optional.empty();
@@ -38,9 +41,9 @@ public class LoginServiceImpl implements LoginService {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
 
-        UsuarioRepository user = new UsuarioRepositoryImpl();
+       
         if (obtenerAutorizacionComparandoPass(password, username)) {
-            if (user.findByUsername(username) != null) {
+            if (userRepo.findByUsername(username) != null) {
                 return Optional.of(username);
             }
             return Optional.empty();
@@ -55,16 +58,17 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean registrarUsuario(String name, String apellido, String email, String username, String password) {
-        UsuarioRepository usuarioRepository = new UsuarioRepositoryImpl();
-        return usuarioRepository.registrarUsuario(name, apellido, email, username, password);
+        
+        return userRepo.registrarUsuario(name, apellido, email, username, password);
     }
 
     @Override
     public Usuario obtenerUsuario(String password, String username) {
-
-        UsuarioRepository user = new UsuarioRepositoryImpl();
+    	
+    	
+       
         if (obtenerAutorizacionComparandoPass(password, username)) {
-            Usuario usuario = user.findByUsername(username);
+            Usuario usuario = userRepo.findByUsername(username);
             return usuario;
         }
 

@@ -67,7 +67,8 @@ public class UsuarioPerfilController implements Serializable {
 	public String presentacionPerfil(HttpServletRequest req, Model model, @PathVariable String username)
 			throws ServletException, IOException {
 
-		if (username.equals("perfil") || username.equals("Perfil") || username.equals("favicon.ico") || username.equals("login") || username.equals("Login")) {
+		if (username.equals("perfil") || username.equals("Perfil") || username.equals("favicon.ico")
+				|| username.equals("login") || username.equals("Login")) {
 			return "redirect:/perfil";
 		}
 
@@ -76,6 +77,7 @@ public class UsuarioPerfilController implements Serializable {
 
 		model.addAttribute("usernameLogged", usernameLogged);
 		model.addAttribute("userLoggedId", id);
+		
 		if (id != null) {
 			ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
 			model.addAttribute("amigosLista", amigosLista);
@@ -88,38 +90,39 @@ public class UsuarioPerfilController implements Serializable {
 			// req.getSession().setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); //
 			// SE ENVIA AL REQUEST
 			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
-		}
 
-		try {
+			try {
 
-			Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
-			
-			if(perfil == null) {
-				return "redirect:/login";
-			}
-			
-			List<Logro> listaLogros = perfil.getLogros();
-			for(Logro  lista : listaLogros) {
-				
-				if(lista.getDbname().equals("place_50_chest")) {
-					listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
+				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
+
+				if (perfil == null) {
+					return "redirect:/login";
+				}
+
+				List<Logro> listaLogros = perfil.getLogros();
+				for (Logro lista : listaLogros) {
+
+					if (lista.getDbname().equals("place_50_chest")) {
+						listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
+
+					}
 
 				}
-			
-				
+
+				model.addAttribute("perfil", perfil);
+
+				model.addAttribute("logrosListaUser", perfil.getLogros());
+				model.addAttribute("trabajosActivos",
+						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
+				model.addAttribute("trabajosNoActivos",
+						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
+			} catch (Exception e) {
+				return "redirect:/login";
 			}
-
-
-			model.addAttribute("perfil", perfil);
-
-			model.addAttribute("logrosListaUser", perfil.getLogros());
-			model.addAttribute("trabajosActivos", trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
-			model.addAttribute("trabajosNoActivos",
-					trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
-
-		} catch (Exception e) {
+		} else {
 			return "redirect:/login";
 		}
+
 		return "userp";
 	}
 

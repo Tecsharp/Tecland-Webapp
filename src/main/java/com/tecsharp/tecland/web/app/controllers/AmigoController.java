@@ -50,15 +50,20 @@ public class AmigoController implements Serializable {
 						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
 				model.addAttribute("perfil", perfil);
 
-				ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(busqueda, userId);
+				ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(busqueda, userId); //BUSCA AL USUARIO
 				req.setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
 
 				ArrayList<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
+				
+				if(listaBusquedaAmigos.isEmpty()) {
+					
+					
+					model.addAttribute("noUsuario", "No se encontró el usuario: " + busqueda);
+					return "buscar";
+				}
 
-			} else {
-				return "buscar";
 			}
 		} else {
 			return "redirect:/login";
@@ -72,8 +77,7 @@ public class AmigoController implements Serializable {
 	public String aceptarAmigo(@RequestParam Integer idUsuarioSolicitud, HttpServletRequest req, Model model) {
 		String usuario = (String) req.getSession().getAttribute("USERNAME");
 		Integer userId = Integer.valueOf(req.getParameter("idUsuarioSolicitud"));
-		
-		
+
 		if (usuario != null) {
 			amigoService.aceptarSolicitudDeAmistad(idUsuarioSolicitud, (Integer) req.getSession().getAttribute("ID"));
 

@@ -42,8 +42,8 @@ body {
 	min-width: 0;
 	word-wrap: break-word;
 	background-color: #fff;
-	background-clip: border-box;
-	border: 0 solid rgba(0, 0, 0, .125);
+	
+	border: none;
 	border-radius: .25rem;
 }
 
@@ -337,8 +337,66 @@ _breadcrumb {
 
 							<div id="Logros" class="tabcontent">
 								
-								<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
+								<h6>Estadísticas</h6>
 								
+								<div class="row gutters-sm">
+									<div class="col-sm-6 mb-3">
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="d-flex align-items-center mb-3"></h6>
+			
+			
+												<tr th:each="stat : ${perfil.listEst1}">
+			
+													<div><img
+														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
+														style="width: 16px; height: 16px;"
+														th:text="${stat.descripcion} + ':  ' + ${stat.valor}"></div>
+			
+													<div>
+													
+													
+													
+													<hr>
+													</div>
+												</tr>
+			
+			
+											</div>
+										</div>
+									</div>
+			
+									<div class="col-sm-6 mb-3">
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="d-flex align-items-center mb-3"></h6>
+			
+												<tr th:each="stat : ${perfil.listEst2}">
+			
+													<div><img
+														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
+														style="width: 16px; height: 16px;"
+														th:text="${stat.descripcion} + ':  ' + ${stat.valor}"></div>
+			
+													<div>
+													<hr>
+													</div>
+												</tr>
+			
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+								
+								
+								
+								
+								
+								
+								<h6>Logros</h6>
+								<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
 								<hr>
 								<div class="container2">
 								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
@@ -368,13 +426,13 @@ _breadcrumb {
 											</div>
 										</tr>
 									</thead>
-
+									<hr>
 									<tbody>
 
 
-
+										
 										<tr th:each="amigos : ${amigosLista}">
-											<!-- <th scope="row">1</th> -->
+											
 											<td><img th:src="${amigos.imageUrl}" th:alt="${amigos.nombre}" class="rounded-circle" width="40"></td>
 											
 											<td th:text="${amigos.nombre}"></td>

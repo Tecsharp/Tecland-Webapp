@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class Usuario implements Serializable {
 
     private Integer id;
+    private String UUID;
     private String username;
     private String correo;
     private String password;

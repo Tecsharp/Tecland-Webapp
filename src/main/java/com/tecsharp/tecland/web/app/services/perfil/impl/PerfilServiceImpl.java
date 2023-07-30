@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.tecsharp.tecland.web.app.models.Perfil;
+import com.tecsharp.tecland.web.app.repositories.estadistica.EstadisticaRepository;
 import com.tecsharp.tecland.web.app.repositories.logros.LogrosRepository;
+import com.tecsharp.tecland.web.app.services.estadistica.EstadisticaService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
@@ -30,6 +32,9 @@ public class PerfilServiceImpl implements PerfilService{
 	
 	@Autowired
 	private LogrosRepository logrosRepo;
+	
+	@Autowired
+	private EstadisticaService estadisticaService;
 
 	@Override
 	public String recuperarLinkAvatarURL(String username) {
@@ -83,7 +88,9 @@ public class PerfilServiceImpl implements PerfilService{
 		perfil.setTrabajosActivos(trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId())); // SE OBTIENEN LOS TRABAJOS ACTIVOS
 		perfil.setTrabajosNoActivos(trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId())); // SE OBTIENEN LOS TRABAJOS NO ACTIVOS
 		perfil.setLogros(logrosRepo.obtenerListaLogros(username));
-		
+		perfil.setListEst1(estadisticaService.obtieneListEst1(perfil.getUsuario().getUUID()));
+		perfil.setListEst2(estadisticaService.obtieneListEst2(perfil.getUsuario().getUUID()));
+
 		} else {
 			return null;
 		}

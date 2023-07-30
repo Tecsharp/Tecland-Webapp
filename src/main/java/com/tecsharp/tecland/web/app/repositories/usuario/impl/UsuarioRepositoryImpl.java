@@ -54,6 +54,23 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         }
 
 
+        //OBTIENE EL UUID
+        
+        String query6 = "select player_uuid from jobs_users where username = ?";
+
+
+        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+             PreparedStatement statement = connection.prepareStatement(query6)) {
+
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+            	usuario.setUUID(result.getString("player_uuid"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
 
 
