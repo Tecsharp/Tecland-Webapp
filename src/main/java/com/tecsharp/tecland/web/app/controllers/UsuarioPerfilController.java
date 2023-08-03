@@ -77,7 +77,7 @@ public class UsuarioPerfilController implements Serializable {
 
 		model.addAttribute("usernameLogged", usernameLogged);
 		model.addAttribute("userLoggedId", id);
-		
+
 		if (id != null) {
 			ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
 			model.addAttribute("amigosLista", amigosLista);
@@ -91,6 +91,7 @@ public class UsuarioPerfilController implements Serializable {
 			// SE ENVIA AL REQUEST
 			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
 
+		} else if (username != null) {
 			try {
 
 				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
@@ -119,9 +120,8 @@ public class UsuarioPerfilController implements Serializable {
 			} catch (Exception e) {
 				return "redirect:/login";
 			}
-		} else {
-			return "redirect:/login";
-		}
+
+		} 
 
 		return "userp";
 	}
