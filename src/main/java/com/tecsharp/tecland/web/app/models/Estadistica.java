@@ -9,5 +9,6 @@ public class Estadistica {
 	private String descripcion;
 	private String valor;
 	private String blockName;
+	private String img;
 
 }

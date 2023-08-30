@@ -47,13 +47,13 @@ public class LogrosRepositoryImpl implements LogrosRepository{
                 
                 if(achievement.equals("distancefoot_1000") || achievement.equals("connect_1") || 
                 		achievement.equals("maxlevel_10") || achievement.equals("kills_1_zombie")|| 
-                		achievement.equals("place_5_chest") || achievement.equals("place_50_chest")
+                		achievement.equals("place_5_chest") || achievement.equals("place_50_chest") || achievement.equals("deaths_1")
                 		
                 		) {
                 
                 	if(achievement.equals("distancefoot_1000")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/10.png");
+                		logro.setUrl("/logros/camina_1000_bloques.png");
                 		logro.setAchievement("El caminante");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Recorrer 1000 bloques");
@@ -61,7 +61,7 @@ public class LogrosRepositoryImpl implements LogrosRepository{
                 		
                 	} else if(achievement.equals("connect_1")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setUrl("/logros/bienvenido.png");
                 		logro.setAchievement("La Bienvenida");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Conexión por primera vez");
@@ -69,7 +69,7 @@ public class LogrosRepositoryImpl implements LogrosRepository{
                 		
                 	} else if(achievement.equals("maxlevel_10")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setUrl("/logros/nivel10.png");
                 		logro.setAchievement("Nivel 10");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Llega al nivel 10");
@@ -77,25 +77,32 @@ public class LogrosRepositoryImpl implements LogrosRepository{
                 		
                 	} else if(achievement.equals("kills_1_zombie")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setUrl("/logros/mata_zombie.png");
                 		logro.setAchievement("Mata Podridos");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Mata tu primer zombie");
                 		logro.setEstado("Completo");
                 	} else if(achievement.equals("place_5_chest")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setUrl("/logros/5_cofres.png");
                 		logro.setAchievement("Bodeguero");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Coloca 5 cofres");
                 		logro.setEstado("5/50");
                 	} else if(achievement.equals("place_50_chest")){
                 		logro.setDbname(achievement);
-                		logro.setUrl("https://rol4.fenixzone.com/imagenes/logros/11.png");
+                		logro.setUrl("/logros/50_cofres.png");
                 		logro.setAchievement("Maestro en Tetris");
                 		logro.setDate(perfilService.convertirDateToString(date));
                 		logro.setDescripcion("Coloca 50 cofres");
                 		logro.setEstado("50/50 | Completo");
+                	}else if(achievement.equals("deaths_1")){
+                		logro.setDbname(achievement);
+                		logro.setUrl("/logros/primer_muerte.png");
+                		logro.setAchievement("Primer Muerte");
+                		logro.setDate(perfilService.convertirDateToString(date));
+                		logro.setDescripcion("Morir por primera vez");
+                		logro.setEstado("");
                 	}
                 	
                 	listaLogros.add(logro);

@@ -4,37 +4,29 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
 import com.tecsharp.tecland.web.app.models.Logro;
 import com.tecsharp.tecland.web.app.models.Notificacion;
 import com.tecsharp.tecland.web.app.models.Perfil;
-import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
-import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("")
@@ -73,24 +65,20 @@ public class PerfilController implements Serializable {
 
 				Perfil perfil = perfilService
 						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
-				
-			
-				
+
 				List<Logro> listaLogros = perfil.getLogros();
-				for(Logro  lista : listaLogros) {
-					
-					if(lista.getDbname().equals("place_50_chest")) {
+				for (Logro lista : listaLogros) {
+
+					if (lista.getDbname().equals("place_50_chest")) {
 						listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
 
 					}
-				
-					
-				}
 
+				}
 
 				model.addAttribute("perfil", perfil);
 				model.addAttribute("logrosListaUser", perfil.getLogros());
-				
+
 				model.addAttribute("trabajosActivos",
 						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
 				model.addAttribute("trabajosNoActivos",
@@ -102,11 +90,9 @@ public class PerfilController implements Serializable {
 				ArrayList<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
-				
-				
+
 				model.addAttribute("perfilUsuarioUsername", perfil.getUsuario().getUsername());
 				model.addAttribute("perfilImageUrl", perfil.getImageUrl());
-				
 
 			} catch (Exception e) {
 				return "redirect:/login";

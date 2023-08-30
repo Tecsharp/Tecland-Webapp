@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.tecsharp.tecland.web.app.models.Perfil;
+import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.repositories.estadistica.EstadisticaRepository;
 import com.tecsharp.tecland.web.app.repositories.logros.LogrosRepository;
 import com.tecsharp.tecland.web.app.services.estadistica.EstadisticaService;
@@ -75,8 +76,9 @@ public class PerfilServiceImpl implements PerfilService{
 		
 		Perfil perfil = new Perfil();
 		if(username != null) {
-		perfil.setId(usuarioService.findByUsername(username).getId());
-		perfil.setUsuario(usuarioService.findByUsername(username)); //SE BUSCA Y SETEA EL USUARIO
+		Usuario usuario = usuarioService.findByUsername(username);
+		perfil.setUsuario(usuario); //SE BUSCA Y SETEA EL USUARIO
+		perfil.setId(usuario.getId());
 		
 		/*
 		 * Se envia la fecha de lastlogin para convertirla a String

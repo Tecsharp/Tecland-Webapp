@@ -69,7 +69,7 @@ public class UsuarioPerfilController implements Serializable {
 
 		if (username.equals("perfil") || username.equals("Perfil") || username.equals("favicon.ico")
 				|| username.equals("login") || username.equals("Login")) {
-			return "redirect:/perfil";
+			return "redirect:/login";
 		}
 
 		Integer id = (Integer) req.getSession().getAttribute("ID");
@@ -91,7 +91,7 @@ public class UsuarioPerfilController implements Serializable {
 			// SE ENVIA AL REQUEST
 			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
 
-		} else if (username != null) {
+		} if (username != null) {
 			try {
 
 				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);

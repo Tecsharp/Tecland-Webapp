@@ -25,6 +25,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Override
     public Usuario findByUsername(String username) {
         Usuario usuario = null;
+        //usuario.setUsername(username);
 
         //USUARIO
         String query = "SELECT * FROM authme WHERE username = ?";

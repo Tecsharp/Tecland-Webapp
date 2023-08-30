@@ -121,6 +121,7 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			while (result.next()) {
 				est.setDescripcion("Flechas lanzadas");
 				est.setValor(result.getString("arrows"));
+				est.setImg("/icons/arrow.png");
 
 			}
 

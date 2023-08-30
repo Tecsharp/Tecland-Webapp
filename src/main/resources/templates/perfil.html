@@ -337,7 +337,7 @@ _breadcrumb {
 
 							<div id="Logros" class="tabcontent">
 								
-								<h6>Estadísticas</h6>
+								<h6>Estadísticas 2</h6>
 								
 								<div class="row gutters-sm">
 									<div class="col-sm-6 mb-3">
@@ -349,7 +349,7 @@ _breadcrumb {
 												<tr th:each="stat : ${perfil.listEst1}">
 			
 													<div><img
-														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
+														th:src="${stat.img}"
 														style="width: 16px; height: 16px;"
 														th:text="${stat.descripcion} + ':  ' + ${stat.valor}"></div>
 			
