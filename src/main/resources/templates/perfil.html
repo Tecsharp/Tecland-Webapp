@@ -226,7 +226,7 @@ _breadcrumb {
 					<div class="card mb-3">
 
 						<div class="tab">
-							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuenta</button>
+							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuentas</button>
 							<button id="Informacion-tab" class="tablinks"
 								onclick="openCity(event, 'Informacion')">Informacion</button>
 							<button id="Logros-tab" class="tablinks"
@@ -337,7 +337,7 @@ _breadcrumb {
 
 							<div id="Logros" class="tabcontent">
 								
-								<h6>Estadísticas 2</h6>
+								<h6>Estadísticas</h6>
 								
 								<div class="row gutters-sm">
 									<div class="col-sm-6 mb-3">
@@ -351,7 +351,7 @@ _breadcrumb {
 													<div><img
 														th:src="${stat.img}"
 														style="width: 16px; height: 16px;"
-														th:text="${stat.descripcion} + ':  ' + ${stat.valor}"></div>
+														th:text="' ' + ${stat.descripcion} + ':  ' + ${stat.valor}"></div>
 			
 													<div>
 													
