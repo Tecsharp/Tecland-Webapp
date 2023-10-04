@@ -1,3 +1,12 @@
+
+
+![]()
+![]()
+![]()
+
+
+
+![](https://i.postimg.cc/j5YVt4gq/7.png)
 # Tecland Webapp
 Aplicación web para administrar un servidor de Minecraft basado en Spigot/Bukkit, con el uso de los plugins más importantes para la economía de un servidor survival, se ha creado el proyecto en Springboot, Thymeleaf y Maven.
 
@@ -21,25 +30,33 @@ Esta aplicación web realmente es para servidores medianos o de uso personal con
 
 ## Características de la app
 
-#### 1. SISTEMA DE LOGIN:
+#### 1. SISTEMA DE LOGIN
+
+   ![](https://i.postimg.cc/qRc7TRGY/8.png)
    
    Cuenta con un sistema de inicio de sesión, con la misma encriptación que usa el plugiun AuthMe, además está totalmente sincronizado con el servidor, por lo cual te indicará desde la app tu última ip y si tú o un usuario está conectado.
 
-#### 2. SISTEMA DE LOGROS:
-
+#### 2. SISTEMA DE LOGROS
+   ![](https://i.postimg.cc/R0ySftg2/5.png)
+   
    Con el plugin AdvancedAchievement se logra crear un sistema de logros que son totalmente modificables, es cuestión de agregarlos directamente en la configuración del plugin para que la app los reconozca, manualmente tendrás que crear la miniatura, agregarla en la carpeta de "logros" y dar de alta la URL en la base de datos para que la pueda encontrar automáticamente cuando un usuario alcance ese logro.
 
-#### 3. SISTEMA DE ESTADÍSTICAS:
-
+#### 3. SISTEMA DE ESTADÍSTICAS
+   ![](https://i.postimg.cc/ZqCYCHxr/6.png)
+   
    Las estadísticas están casi totalmente recogidas del plugin AdvancedAchievment, por lo cual es muy necesario, éste nos entrega valores como "camas usadas" y el "número de pasos". Pero JobsReborn nos entrega estadísticas de niveles de trabajo, por lo que la aplicación no sería lo mismo sin este plugin.
 
-#### 4. SISTEMA DE AMIGOS:
-
+#### 4. SISTEMA DE AMIGOS
+   ![](https://i.postimg.cc/RVLZ8N0n/3.png)
+   
    Este apartado sólo te permite agregar amigos y ver sus estados de conexión por ahora. También puedes ver sus perfiles buscando su nombre en el navegador:
 ```sh
 127.0.0.1/nombreusuario
 ```
-#### 5. PANEL ADMIN:
-
+#### 5. PANEL ADMIN
+   ![](https://i.postimg.cc/JhDqPwQt/9.png)
    Un panel pensado en administrar a los usuarios que ingresan, aún no está terminado, por lo cual sólo muestra una lista donde se puede editar o eliminar un usuario, por ahora.
+
+#### Thymeleaf
+   Se modificó el template de Materio para realizar esta app.
 
