@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public interface NotificacionService {
 
-    Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameId, Integer amigoId);
+	public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameId, Integer amigoId);
 
-    ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId);
+	public ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId);
 
-    Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId);
+	public Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId);
 
-    Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId);
+	public Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId);
 }

@@ -3,23 +3,18 @@ package com.tecsharp.tecland.web.app.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
 import com.tecsharp.tecland.web.app.models.Logro;
@@ -28,14 +23,10 @@ import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
-import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("")
@@ -71,6 +62,11 @@ public class UsuarioPerfilController implements Serializable {
 				|| username.equals("login") || username.equals("Login")) {
 			return "redirect:/login";
 		}
+		
+		Usuario user = usuarioService.checkUserExist(username);
+		if(user.getUsername() == null) {
+			return "redirect:/error";
+		}
 
 		Integer id = (Integer) req.getSession().getAttribute("ID");
 		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
@@ -83,21 +79,21 @@ public class UsuarioPerfilController implements Serializable {
 			model.addAttribute("amigosLista", amigosLista);
 
 			ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
-			// req.getSession().setAttribute("notificacionesLista", notificacionesLista);
+			
 			model.addAttribute("notificacionesLista", notificacionesLista);
 
 			ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
-			// req.getSession().setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); //
-			// SE ENVIA AL REQUEST
+			
 			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
 
 		} if (username != null) {
 			try {
-
+				
+				//COMPROBAR SI EL USUARIO EXISTE, SI EXISTE IR A BUSCARLO A LA BASE DE DATOS
 				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
 
 				if (perfil == null) {
-					return "redirect:/login";
+					return "redirect:/error";
 				}
 
 				List<Logro> listaLogros = perfil.getLogros();
@@ -111,6 +107,7 @@ public class UsuarioPerfilController implements Serializable {
 				}
 
 				model.addAttribute("perfil", perfil);
+				model.addAttribute("perfilUsuarioLogged", perfilService.obtenerPerfilDeUsuario(usernameLogged));
 
 				model.addAttribute("logrosListaUser", perfil.getLogros());
 				model.addAttribute("trabajosActivos",
@@ -118,12 +115,12 @@ public class UsuarioPerfilController implements Serializable {
 				model.addAttribute("trabajosNoActivos",
 						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
 			} catch (Exception e) {
-				return "redirect:/login";
+				return "redirect:/error";
 			}
 
 		} 
 
-		return "userp";
+		return "usuariop";
 	}
 
 }

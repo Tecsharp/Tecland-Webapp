@@ -17,10 +17,11 @@ public class Usuario implements Serializable {
     private String username;
     private String correo;
     private String password;
-    private Integer dinero;
+    private Double dinero;
     private Integer vip;
     private Date dateCreate;
     private Date dateUpdate;
+    private Integer isAdmin;
 
     // JOBS PLUGIN //
     private Double puntosTrabajoActual;
@@ -31,6 +32,7 @@ public class Usuario implements Serializable {
     private Long ultimaConexion;
     private Integer estadoConexion;
     private String biografia;
+    private String imgAvatar;
 
 
 }

@@ -7,11 +7,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Utilidades {
-	
-    public static String formatearPrecio(Integer precio) {
-        DecimalFormat formatea = new DecimalFormat("###,###,###");
-        return formatea.format(precio);
-    }
-    
+
+	public static String formatearPrecio(Integer precio) {
+		DecimalFormat formatea = new DecimalFormat("###,###,###");
+		return formatea.format(precio);
+	}
+
+	public String recuperarLinkAvatarURL(String username) {
+
+		return "https://minotar.net/armor/bust/" + username + ".png";
+	}
 
 }

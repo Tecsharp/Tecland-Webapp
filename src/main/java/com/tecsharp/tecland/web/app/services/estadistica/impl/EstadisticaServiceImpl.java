@@ -47,4 +47,30 @@ public class EstadisticaServiceImpl implements EstadisticaService{
 		return lista;
 	}
 
+	@Override
+	public Estadistica ObtieneUserDeaths(String UUID) {
+		Estadistica est = estRepo.obtieneDeaths(UUID);
+		return est;
+	}
+
+	@Override
+	public Estadistica ObtieneUserKill(String UUID) {
+		Estadistica est = estRepo.obtieneKills(UUID);
+		return est;
+	}
+
+	@Override
+	public Estadistica ObtieneUserPlayedtime(String UUID) {
+		Estadistica est = estRepo.obtienePlaytime(UUID);
+		return est;
+	}
+
+	@Override
+	public Estadistica ObtieneUserBreaks(String UUID) {
+		Estadistica est = estRepo.obtieneBreaks(UUID);
+		return est;
+	}
+
+
+
 }

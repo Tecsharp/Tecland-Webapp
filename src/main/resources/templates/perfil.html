@@ -1,564 +1,426 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-
 <head>
-<meta charset="utf-8">
-
-
-<title>Perfil | Tecland Roleplay</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<style type="text/css">
-body {
-	margin-top: 20px;
-	color: #1a202c;
-	text-align: left;
-	background: url(./images/bg.png);
-}
-
-.main-body {
-	padding: 15px;
-}
-
-.card {
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0
-		rgba(0, 0, 0, .06);
-}
-
-.btn-info {
-	color: #fff;
-	background-color: #3b8526;
-	border-color: #3b8526;
-}
-
-.card {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-	word-wrap: break-word;
-	background-color: #fff;
-	
-	border: none;
-	border-radius: .25rem;
-}
-
-.card-body {
-	flex: 1 1 auto;
-	min-height: 1px;
-	padding: 1rem;
-}
-
-.gutters-sm {
-	margin-right: -8px;
-	margin-left: -8px;
-}
-
-.gutters-sm>.col, .gutters-sm>[class*=col-] {
-	padding-right: 8px;
-	padding-left: 8px;
-}
-
-.mb-3, .my-3 {
-	margin-bottom: 1rem !important;
-}
-
-.bg-gray-300 {
-	background-color: #e2e8f0;
-}
-
-.h-100 {
-	height: 100% !important;
-}
-
-.shadow-none {
-	box-shadow: none !important;
-}
-
-.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-}
-
-.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-	font-size: 17px;
-}
-
-.tab button:hover {
-	background-color: #ddd;
-}
-
-.tab button.active {
-	background-color: #ccc;
-}
-
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border-top: none;
-}
-
-_breadcrumb {
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-	padding: 0.75rem 1rem;
-	margin-bottom: 1rem;
-	list-style: none;
-	background-color: #ffffff;
-	border-radius: 0.25rem;
-}
-
-.container2 {
-  display: grid; 
-  grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "IMG Logro Fecha"
-    "IMG Description Fecha"
-    "IMG Description Estado"; 
-}
-.IMG { grid-area: IMG; }
-.Logro { grid-area: Logro; }
-.Obtenido { grid-area: Obtenido; }
-.Fecha { grid-area: Fecha; }
-.Estado { grid-area: Estado; }
-.Description { grid-area: Description; }
-
-</style>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Perfil | Tecland</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="assets/vendors/jvectormap/jquery-jvectormap.css">
+	<link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.carousel.min.css">
+	<link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
 
 <body>
-	<div class="container">
-		<div class="main-body">
+	<div class="container-scroller">
+		<!-- partial:partials/_sidebar.html -->
+		<nav id="sidebar" th:replace="layout/layout :: sidebar"></nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_navbar.html -->
+			<nav th:replace="layout/layout :: navbar"></nav>
 
-			<nav aria-label="breadcrumb" class="main-breadcrumb">
-				<ol class="breadcrumb">
-					<div class="tab">
-						<a th:href="@{/}"><button
-								class="tablinks">Inicio</button></a> <a
-							th:href="@{/perfil}"><button
-								class="tablinks">Perfil</button></a> <a
-							th:href="@{/membresias}"><button
-								class="tablinks">Membresías</button></a>
-					</div>
-				</ol>
-			</nav>
+			<!-- partial -->
+			<div class="main-panel">
+				<div class="content-wrapper">
 
-			<div class="row gutters-sm">
-				<div class="col-md-4 mb-3">
-					<div class="card">
-						<div class="card-body">
-							<div class="d-flex flex-column align-items-center text-center">
-								<img th:src="@{${perfilImageUrl}}"
-									th:alt="${perfilUsuarioUsername}" class="rounded-circle"
-									width="150" />
-								<div class="mt-3">
-									<h4 th:text="${perfilUsuarioUsername}"></h4>
-									<p class="text-secondary mb-1"
-										th:if="${perfil.usuario.estadoConexion == 0}">Desconectado</p>
-									<p class="text-secondary mb-1"
-										th:unless="${perfil.usuario.estadoConexion == 0}">Conectado</p>
-									<p class="text-muted font-size-sm"
-										th:text="${perfil.usuario.ultimaIp}"></p>
-
+					<div class="row">
+						<div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
 									<div class="row">
-										<div class="col-sm-12">
-											<form th:action="@{/destroy}" method="post">
-												<button type="submit" class="btn-info">Cerrar
-													sesión</button>
-											</form>
+										<div class="col-9">
+											<div class="d-flex align-items-center align-self-start">
+												<h3 class="mb-0" th:text="'$' + ${perfilUsuarioLogged.usuario.dinero}"></h3>
+											</div>
+										</div>
+
+									</div>
+									<h6 class="text-muted font-weight-normal">Dinero</h6>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-9">
+											<div class="d-flex align-items-center align-self-start">
+												<h3 class="mb-0" th:text="${userKill.valor}"></h3>
+											</div>
+										</div>
+
+									</div>
+									<h6 class="text-muted font-weight-normal" th:text="${userKill.descripcion}"></h6>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-9">
+											<div class="d-flex align-items-center align-self-start">
+												<h3 class="mb-0" th:text="${userBreaks.valor}"></h3>
+											</div>
+										</div>
+
+									</div>
+									<h6 class="text-muted font-weight-normal" th:text="${userBreaks.descripcion}"></h6>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-9">
+											<div class="d-flex align-items-center align-self-start">
+												<h3 class="mb-0" th:text="${userPlayedTime.valor}"></h3>
+											</div>
+										</div>
+
+									</div>
+									<h6 class="text-muted font-weight-normal" th:text="${userPlayedTime.descripcion}">
+									</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body align-self-center">
+									<h4 class="text-md-center" th:text="${perfilUsuarioLogged.usuario.username}"></h4>
+									<img th:src="@{${perfilUsuarioLogged.imageUrl}}" th:alt="${perfilUsuarioLogged.usuario.username}"
+										class="rounded-circle" width="150" />
+									<div
+										class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+										<div class="text-md-center text-xl-left">
+
+											<h6 class="mb-1" th:if="${perfilUsuarioLogged.usuario.estadoConexion == 0}">Desconectado
+											</h6>
+											<h6 class="mb-1" th:unless="${perfilUsuarioLogged.usuario.estadoConexion == 0}">Conectado
+											</h6>
+
+											<p class="text-muted mb-0">Estado</p>
+										</div>
+										<div
+											class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+
+										</div>
+									</div>
+									<div
+										class="center d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+										<div class="text-md-center text-xl-left">
+											<h6 class="mb-1" th:text="${perfilUsuarioLogged.usuario.ultimaIp}"></h6>
+											<p class="text-muted mb-0">Última IP</p>
+										</div>
+										<div
+											class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-
-
-					<div class="card mt-3">
-						<ul class="list-group list-group-flush">
-							<li
-								class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-								<h6 class="mb-0">Notificaciones | ver todas</h6>
-							</li>
-
-
-
-							<tr th:each="notificaciones : ${notificacionesLista}">
-								<li
-									class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									
-									<h6 class="mb-0"
-										th:text="${notificaciones.notificacionMensaje}"></h6>
-									<form
-										th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud=' + ${notificaciones.usuarioId}"
-										class="navbar-search pull-left" method="post">
-										<button type="submit" name="userId" id="userId"
-											class="btn-info">Aceptar solicitud</button>
-									</form> <!--<a th:href="@{/aceptar?userId={userId}(userId = ${notificaciones.usuarioId})}">Aceptar amigo</a>
-										-->
-								</li>
-
-							</tr>
-						</ul>
-					</div>
-
-				</div>
-
-
-
-				<div class="col-md-8">
-					<div class="card mb-3">
-
-						<div class="tab">
-							<button id="Cuenta-tab" class="tablinks" onclick="openCity(event, 'Cuenta')">Cuentas</button>
-							<button id="Informacion-tab" class="tablinks"
-								onclick="openCity(event, 'Informacion')">Informacion</button>
-							<button id="Logros-tab" class="tablinks"
-								onclick="openCity(event, 'Logros')">Logros</button>
-							<button id="Amigos-tab" class="tablinks"
-								onclick="openCity(event, 'Amigos')">Amigos</button>
-						</div>
-
-
-
-						<div class="card-body">
-
-							<div id="Cuenta" class="tabcontent">
-
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Usuario</h6>
+						<div class="col-md-8 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex flex-row justify-content-between">
+										<h4 class="card-title mb-1">INFORMACIÓN DE CUENTA</h4>
+										<!--<p class="text-muted mb-1">Your data status</p> -->
 									</div>
-									<div class="col-sm-9 text-secondary"
-										th:text="${perfilUsuarioUsername}"></div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Dinero</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">Pendiente</div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Correo</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">Pendiente</div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Última Conexión</h6>
-									</div>
-									<div class="col-sm-9 text-secondary"
-										th:text="${perfil.ultimaCon}"></div>
-								</div>
-								<hr>
-							  <div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Puntos de trabajo</h6>
-									</div>
-									<div class="col-sm-9 text-secondary"
-										th:text="@{${perfil.usuario.puntosTrabajoActual}}"></div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-sm-12">
-										<a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											dinero</a> <a class="btn btn-info " target="__blank"
-											href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Comprar
-											VIP</a>
-									</div>
-								</div>
-							</div>
-
-							<div id="Informacion" class="tabcontent">
-								<p>Tu Informacion</p>
-
-								<div class="row">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Biografia</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">
-									
-									<textarea rows="8" cols="55" th:placeholder="@{${perfil.usuario.biografia}}" maxlength="500" name="biografia" id="biografia" form="usrform" ></textarea>
-									<form method="POST" enctype="multipart/form-data" th:action="@{/info/actualizar}" id="usrform">
-									<div id="contador">0/500</div>
-									<br>
-    								<button class="btn-info" type="submit" name="action" value="submitlines">Actualizar</button>
-									</form>
-									
-		
-									
-									<script>
-									
-									const mensaje = document.getElementById('biografia');
-									const contador = document.getElementById('contador');
-
-									mensaje.addEventListener('input', function(e) {
-									    const target = e.target;
-									    const longitudMax = target.getAttribute('maxlength');
-									    const longitudAct = target.value.length;
-									    contador.innerHTML = `${longitudAct}/${longitudMax}`;
-									});
-									
-									</script>
-									
-									
-									</div>
-								</div>
-								
-								
-								
-								<br>
-
-								
-								
-								
-							</div>
-
-							<div id="Logros" class="tabcontent">
-								
-								<h6>Estadísticas</h6>
-								
-								<div class="row gutters-sm">
-									<div class="col-sm-6 mb-3">
-										<div class="card h-100">
-											<div class="card-body">
-												<h6 class="d-flex align-items-center mb-3"></h6>
-			
-			
-												<tr th:each="stat : ${perfil.listEst1}">
-			
-													<div><img
-														th:src="${stat.img}"
-														style="width: 16px; height: 16px;"
-														th:text="' ' + ${stat.descripcion} + ':  ' + ${stat.valor}"></div>
-			
-													<div>
-													
-													
-													
-													<hr>
-													</div>
-												</tr>
-			
-			
-											</div>
-										</div>
-									</div>
-			
-									<div class="col-sm-6 mb-3">
-										<div class="card h-100">
-											<div class="card-body">
-												<h6 class="d-flex align-items-center mb-3"></h6>
-			
-												<tr th:each="stat : ${perfil.listEst2}">
-			
-													<div><img
-														src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
-														style="width: 16px; height: 16px;"
-														th:text="${stat.descripcion} + ':  ' + ${stat.valor}"></div>
-			
-													<div>
-													<hr>
-													</div>
-												</tr>
-			
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								
-								
-								
-								
-								
-								
-								
-								<h6>Logros</h6>
-								<div class="card col-md-12" th:each="logros : ${logrosListaUser}">
-								<hr>
-								<div class="container2">
-								  <div class="IMG row"><img th:src="@{${logros.url}}" width="100"/></div>
-								  <div class="Logro row" th:text="${logros.achievement}"></div>
-								  <div class="Fecha row" th:text="'Logro conseguido el ' + ${logros.date}"></div>
-								  <div class="Estado row" th:text="${logros.estado}"></div>
-								  <div class="Description row" th:text="${logros.descripcion}"></div>
-								</div>
-								
-							</div>
-
-							</div>
-
-							<div id="Amigos" class="tabcontent">
-
-								<table class="table">
-									<thead>
-										<tr>
-
-											<div class="search-container">
-												<form action="/perfil/buscar"
-													class="navbar-search pull-left" method="POST">
-													<input type="text" placeholder="Buscar amigos.."
-														name="busqueda" id="busqueda">
-													<button type="submit" class="btn-info">Buscar</button>
-												</form>
-											</div>
-										</tr>
-									</thead>
-									<hr>
-									<tbody>
-
-
-										
-										<tr th:each="amigos : ${amigosLista}">
-											
-											<td><img th:src="${amigos.imageUrl}" th:alt="${amigos.nombre}" class="rounded-circle" width="40"></td>
-											
-											<td th:text="${amigos.nombre}"></td>
-
-											<td th:if="${amigos.estado == 0}">Desconectado</td>
-											<td th:unless="${amigos.estado == 0}">Conectado</td>
-
-
-
-
-											<td>Mensaje</td>
-											<td>
-
-												<div class="row">
-													<div class="col-sm-12">
-
-
-														<div class="search-container">
-															<form
-																th:action="@{/eliminar-amigo} + '?idUsuarioSolicitud='+ ${amigos.id}"
-																class="navbar-search pull-left" method="post">
-																<button type="submit" name="userId" id="userId"
-																	class="btn-info">Eliminar</button>
-															</form>
-
-
+									<div class="row">
+										<div class="col-12">
+											<div class="preview-list">
+												<div class="preview-item border-bottom">
+													<div class="preview-thumbnail">
+														<div class="preview-icon bg-primary">
+															<i class="mdi mdi-file-document"></i>
 														</div>
 													</div>
-											</td>
-										</tr>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject">Usuario</h6>
+															<p class="mb-0" th:text="${perfilUsuarioLogged.usuario.username}"></p>
+														</div>
 
-									</tbody>
-								</table>
+													</div>
+												</div>
+												<div class="preview-item border-bottom">
+													<div class="preview-thumbnail">
+														<div class="preview-icon bg-success">
+															<i class="mdi mdi-cloud-download"></i>
+														</div>
+													</div>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject">Dinero</h6>
+															<p class="text-muted mb-0"
+																th:text="'$ ' + ${perfilUsuarioLogged.usuario.dinero}"></p>
+														</div>
 
-							</div>
+													</div>
+												</div>
+												<div class="preview-item border-bottom">
+													<div class="preview-thumbnail">
+														<div class="preview-icon bg-info">
+															<i class="mdi mdi-clock"></i>
+														</div>
+													</div>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject">Correo</h6>
+															<p class="text-muted mb-0">Pendiente</p>
+														</div>
 
-							<script>
-								function openCity(evt, cityName) {
-									var i, tabcontent, tablinks;
-									tabcontent = document
-											.getElementsByClassName("tabcontent");
-									for (i = 0; i < tabcontent.length; i++) {
-										tabcontent[i].style.display = "none";
-									}
-									tablinks = document
-											.getElementsByClassName("tablinks");
-									for (i = 0; i < tablinks.length; i++) {
-										tablinks[i].classList.remove("active");
-									}
-									document.getElementById(cityName).style.display = "block";
-									document.getElementById(cityName + "-tab").classList
-											.add("active");
-									// evt.currentTarget.className += " active";
-								}
+													</div>
+												</div>
+												<div class="preview-item border-bottom">
+													<div class="preview-thumbnail">
+														<div class="preview-icon bg-danger">
+															<i class="mdi mdi-email-open"></i>
+														</div>
+													</div>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject">Última conexión</h6>
+															<p class="text-muted mb-0" th:text="${perfilUsuarioLogged.ultimaCon}">
+															</p>
+														</div>
 
-								// Get the element with id="defaultOpen" and click on it
-								document.getElementById("Cuenta-tab").click();
-							</script>
+													</div>
+												</div>
+												<div class="preview-item">
+													<div class="preview-thumbnail">
+														<div class="preview-icon bg-warning">
+															<i class="mdi mdi-chart-pie"></i>
+														</div>
+													</div>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject">Puntos de trabajo</h6>
+															<p class="text-muted mb-0">1436</p>
+														</div>
 
-						</div>
-					</div>
-					<div class="row gutters-sm">
-						<div class="col-sm-6 mb-3">
-							<div class="card h-100">
-								<div class="card-body">
-									<h6 class="d-flex align-items-center mb-3">Trabajos
-										activos</h6>
-
-
-									<tr th:each="trabajos : ${trabajosActivos}">
-
-										<small><img
-											src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
-											style="width: 16px; height: 16px;"
-											th:text="${trabajos.nombre} + ' | Nivel:' +  ${trabajos.nivel}"></small>
-
-										<div class="progress mb-3" style="height: 5px">
-
-											<div class="progress-bar bg-primary" role="progressbar"
-												th:style="'width:'+ ${trabajos.nivel} +'%'" aria-valuenow=""
-												aria-valuemin="0" aria-valuemax="200"></div>
+													</div>
+												</div>
+											</div>
 										</div>
-									</tr>
-
-
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 mb-3">
-							<div class="card h-100">
-								<div class="card-body">
-									<h6 class="d-flex align-items-center mb-3">Trabajos no
-										activos</h6>
-
-									<tr th:each="trabajos : ${trabajosNoActivos}">
-										<small><img
-											src="https://static.wikia.nocookie.net/minecraft_es_gamepedia/images/c/c7/Fishing_Rod.png"
-											style="width: 16px; height: 16px;"
-											th:text="${trabajos.nombre} + ' | Nivel:' +  ${trabajos.nivel}">
-										</small>
-
-										<div class="progress mb-3" style="height: 5px">
-
-											<div class="progress-bar bg-primary" role="progressbar"
-												th:style="'width:'+ ${trabajos.nivel} +'%'" aria-valuenow=""
-												aria-valuemin="0" aria-valuemax="200"></div>
-										</div>
-									</tr>
-
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col-md-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Trabajos activos</h4>
+
+									</p>
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th> </th>
+													<th> Trabajo </th>
+													<th> Progreso </th>
+													<th> Nivel </th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr th:each="trabajos : ${trabajosActivos}">
+													<td class="py-1">
+														<img th:src="${trabajos.img}" alt="image" />
+													</td>
+													<td th:text="${trabajos.nombre}"></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-success" role="progressbar"
+																th:style="'width:'+ ${trabajos.nivel} +'%'"
+																aria-valuenow="0" aria-valuemin="0" aria-valuemax="200">
+															</div>
+														</div>
+													</td>
+													<td th:text="${trabajos.nivel}"></td>
+												</tr>
+
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Amigos</h4>
+
+									</p>
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th> </th>
+													<th> Usuario </th>
+													<th> Estado </th>
+												</tr>
+											</thead>
+											<tbody>
+
+
+
+												<tr th:each="amigos : ${amigosLista}">
+
+													<td><img th:src="${amigos.imageUrl}" th:alt="${amigos.nombre}"
+															class="rounded-circle" width="40"></td>
+
+													<td th:text="${amigos.nombre}"></td>
+
+													<td th:if="${amigos.estado == 0}">Desconectado</td>
+													<td th:unless="${amigos.estado == 0}">Conectado</td>
+
+													<td>
+
+														<div class="row">
+															<div class="col-sm-12">
+
+
+																<div class="search-container">
+																	<form
+																		th:action="@{/eliminar-amigo} + '?idUsuarioSolicitud='+ ${amigos.id}"
+																		class="navbar-search pull-left" method="post">
+																		<button type="submit" name="userId" id="userId"
+																			class="btn-info">Eliminar</button>
+																	</form>
+
+
+																</div>
+															</div>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-md-6 col-xl-4 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex flex-row justify-content-between">
+										<h4 class="card-title">Notificaciones</h4>
+										<p class="text-muted mb-1 small"></p>
+									</div>
+
+									<div class="preview-list" th:each="notificaciones : ${notificacionesLista}">
+										<div class="preview-item border-bottom">
+											<div class="preview-thumbnail">
+												<img th:src="${notificaciones.imgUsuarioSender}" alt="image"
+													class="rounded-circle" />
+											</div>
+
+
+											<div class="preview-item-content d-flex flex-grow">
+												<div class="flex-grow">
+													<div class="d-flex d-md-block d-xl-flex justify-content-between">
+														<h6 class="preview-subject"
+															th:text="${notificaciones.notificacionMensaje}"></h6>
+														<!-- <p class="text-muted text-small">tiempo</p> -->
+													</div>
+													<form
+														th:action="@{/aceptar-amigo} + '?idUsuarioSolicitud=' + ${notificaciones.usuarioId}"
+														class="navbar-search pull-left" method="post">
+														<button type="submit" name="userId" id="userId"
+															class="btn-info">Aceptar solicitud</button>
+													</form>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-8 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex flex-row justify-content-between">
+										<h4 class="card-title mb-1">Logros</h4>
+										<p class="text-muted mb-1">Fecha al completar</p>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<div class="preview-list">
+												<div class="preview-item border-bottom"
+													th:each="logros : ${logrosListaUser}">
+													<div class="preview-thumbnail">
+														<div class="preview-icon"><img th:src="@{${logros.url}}"
+																width="100" /></div>
+													</div>
+													<div class="preview-item-content d-sm-flex flex-grow">
+														<div class="flex-grow">
+															<h6 class="preview-subject" th:text="${logros.achievement}">
+															</h6>
+															<p class="text-muted mb-0" th:text="${logros.descripcion}">
+															</p>
+														</div>
+														<div class="mr-auto text-sm-right pt-2 pt-sm-0">
+															<p class="text-muted" th:text="${logros.date}"></p>
+															<p class="text-muted mb-0" th:text="${logros.estado}"></p>
+														</div>
+													</div>
+												</div>
+
+
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<!-- content-wrapper ends -->
+					<!-- partial:partials/_footer.html -->
+					<footer class="footer" th:replace="layout/layout :: footer"> </footer>
+					<!-- partial -->
 				</div>
+				<!-- main-panel ends -->
 			</div>
+			<!-- page-body-wrapper ends -->
 		</div>
-	</div>
-	<script data-cfasync="false"
-		src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript">
+		<div th:replace="layout/layout :: pluginfooter"></div>
 		
-	</script>
 </body>
 
 </html>

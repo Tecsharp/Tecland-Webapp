@@ -8,5 +8,9 @@ public interface EstadisticaService {
 	
 	public List<Estadistica>obtieneListEst1(String UUID);
 	public List<Estadistica>obtieneListEst2(String UUID);
+	public Estadistica ObtieneUserDeaths(String UUID);
+	public Estadistica ObtieneUserKill(String UUID);
+	public Estadistica ObtieneUserPlayedtime(String UUID);
+	public Estadistica ObtieneUserBreaks(String UUID);
 
 }

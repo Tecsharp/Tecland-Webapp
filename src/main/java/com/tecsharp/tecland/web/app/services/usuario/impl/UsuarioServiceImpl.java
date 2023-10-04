@@ -1,5 +1,7 @@
 package com.tecsharp.tecland.web.app.services.usuario.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,7 @@ import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 @Primary
 public class UsuarioServiceImpl implements UsuarioService {
 	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	UsuarioRepository usuarioRepository = new UsuarioRepositoryImpl();
 	
     @Override
     public Usuario login(String username, String password) {
@@ -26,9 +27,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             return usuario;
         }
 
-//        if (!isActive(usuario)) {
-//            return null;
-//        }
 
         return usuario;
     }
@@ -52,11 +50,31 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		return usuario;
 	}
+	
+	@Override
+	public String findById(Integer id) {
+		
+		String name = usuarioRepository.getUserById(id);
+		
+		return name;
+	}
 
 	@Override
 	public void actualizarBiografia(String biografia, Integer id) {
 		usuarioRepository.actualizarBiografia(biografia, id);
 		
+	}
+
+	@Override
+	public Usuario checkUserExist(String username) {
+		
+		return usuarioRepository.checkUserExist(username);
+	}
+
+	@Override
+	public List<Usuario> getAllUsers() {
+		List<Usuario> ListUsers = usuarioRepository.getAllUsers();
+		return ListUsers;
 	}
 
 

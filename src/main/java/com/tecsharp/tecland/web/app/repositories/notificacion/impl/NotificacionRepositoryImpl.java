@@ -2,6 +2,10 @@ package com.tecsharp.tecland.web.app.repositories.notificacion.impl;
 
 import com.tecsharp.tecland.web.app.models.Notificacion;
 import com.tecsharp.tecland.web.app.repositories.notificacion.NotificacionRepository;
+import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
+import com.tecsharp.tecland.web.app.services.perfil.impl.PerfilServiceImpl;
+import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
+import com.tecsharp.tecland.web.app.services.usuario.impl.UsuarioServiceImpl;
 import com.tecsharp.tecland.web.app.utils.Constantes;
 
 import java.sql.Connection;
@@ -10,7 +14,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class NotificacionRepositoryImpl implements NotificacionRepository {
+	
+	
+
+	PerfilService perfilService = new PerfilServiceImpl();
+
+	UsuarioService usuarioService = new UsuarioServiceImpl();
+	
+	
+	
+	
+	
     @Override
     public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameiD, Integer amigoId) {
         String query = "insert into notificaciones values (0, ?, ?, 'Agregar', '" + username + "' ' te ha enviado una solicitud de amistad', 1, 'test');";
@@ -33,7 +52,9 @@ public class NotificacionRepositoryImpl implements NotificacionRepository {
 
     @Override
     public ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
-
+    	
+    	
+    	
         ArrayList<Notificacion> listaNotificaciones = new ArrayList<>();
         String query3 = "select * from notificaciones where usuarioId = ?;";
 
@@ -47,6 +68,9 @@ public class NotificacionRepositoryImpl implements NotificacionRepository {
                 Notificacion notificacion = new Notificacion();
                 notificacion.setId(result.getInt("id"));
                 notificacion.setUsuarioId(result.getInt("usuarioIdSender"));
+                String name = usuarioService.findById(result.getInt("usuarioIdSender"));
+            	String urlImg = perfilService.recuperarLinkAvatarURL(name);
+                notificacion.setImgUsuarioSender(urlImg);
                 notificacion.setNotificacionMensaje(result.getString("notificacionMensaje"));
                 notificacion.setEstado(result.getInt("estado"));
                 notificacion.setUrl(result.getString("url"));

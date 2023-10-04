@@ -107,6 +107,12 @@ public class PerfilServiceImpl implements PerfilService{
 		
 		return null;
 	}
+
+	@Override
+	public String obtenerNombrePorID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

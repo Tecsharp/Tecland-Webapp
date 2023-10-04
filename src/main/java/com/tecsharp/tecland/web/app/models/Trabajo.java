@@ -9,5 +9,6 @@ public class Trabajo implements Serializable{
 
     private String nombre;
     private Integer nivel;
+    private String img;
 
 }

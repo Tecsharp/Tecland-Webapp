@@ -10,6 +10,7 @@ public class Notificacion implements Serializable{
     private Integer id;
     private Integer usuarioId;
     private Integer usuarioIdSender;
+    private String imgUsuarioSender;
     private TipoNotificacion notificacion;
     private String notificacionMensaje;
     private Integer estado;

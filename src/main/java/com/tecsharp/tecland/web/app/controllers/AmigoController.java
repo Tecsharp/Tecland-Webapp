@@ -61,7 +61,7 @@ public class AmigoController implements Serializable {
 					
 					
 					model.addAttribute("noUsuario", "No se encontró el usuario: " + busqueda);
-					return "buscar";
+					return "busqueda";
 				}
 
 			}
@@ -69,7 +69,7 @@ public class AmigoController implements Serializable {
 			return "redirect:/login";
 		}
 
-		return "buscar";
+		return "busqueda";
 
 	}
 

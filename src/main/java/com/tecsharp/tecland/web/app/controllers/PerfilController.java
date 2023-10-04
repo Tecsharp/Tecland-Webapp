@@ -22,6 +22,7 @@ import com.tecsharp.tecland.web.app.models.Logro;
 import com.tecsharp.tecland.web.app.models.Notificacion;
 import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
+import com.tecsharp.tecland.web.app.services.estadistica.EstadisticaService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
@@ -53,13 +54,19 @@ public class PerfilController implements Serializable {
 
 	@Autowired
 	private NotificacionService notificacionService;
+	
+	@Autowired
+	private EstadisticaService estService;
 
 	@GetMapping({ "/perfil" })
 	public String toPerfil(HttpServletRequest req, Model model) throws ServletException, IOException {
 
-		String username = (String) req.getSession().getAttribute("USERNAME");
-		req.getSession().setAttribute("USERNAME", username);
-		if (username != null) {
+		
+		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
+		
+		
+		
+		if (usernameLogged != null) {
 
 			try {
 
@@ -92,7 +99,14 @@ public class PerfilController implements Serializable {
 				req.setAttribute("notificacionesLista", notificacionesLista);
 
 				model.addAttribute("perfilUsuarioUsername", perfil.getUsuario().getUsername());
-				model.addAttribute("perfilImageUrl", perfil.getImageUrl());
+				model.addAttribute("perfilUsuarioLogged", perfilService.obtenerPerfilDeUsuario(usernameLogged));
+				
+				model.addAttribute("titulo", "Perfil | Tecland");
+				model.addAttribute("userDeaths", estService.ObtieneUserDeaths(perfil.getUsuario().getUUID()));
+				model.addAttribute("userKill", estService.ObtieneUserKill(perfil.getUsuario().getUUID()));
+				model.addAttribute("userBreaks", estService.ObtieneUserBreaks(perfil.getUsuario().getUUID()));
+				model.addAttribute("userPlayedTime", estService.ObtieneUserPlayedtime(perfil.getUsuario().getUUID()));
+				
 
 			} catch (Exception e) {
 				return "redirect:/login";
