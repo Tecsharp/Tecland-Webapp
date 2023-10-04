@@ -1,6 +1,15 @@
 # Tecland Webapp
 Aplicación web para administrar un servidor de Minecraft basado en Spigot/Bukkit, con el uso de los plugins más importantes para la economía de un servidor survival, se ha creado el proyecto en Springboot, Thymeleaf y Maven.
 
+## Recomendación de uso
+Esta aplicación web realmente es para servidores medianos o de uso personal con amigos, puesto a que podría tener problemas de rendimiento si es que la usas con un servidor de Spigot con mods, pero bien se puede utilizar para servidores sin mods como Bukkit.
+
+## Instalación
+   Para instalarlo, puedes usar XAMPP en Windows o instalar LAMP en Linux.
+
+   En los archivos del repositorio se encuentra el archivo de base de datos "tecland", la aplicación accede a esta base de datos desde el puerto 3306 de forma predeterminada, con el usuario "root" y la contraseña vacía, al igual que necesita de una base de datos llamada "springSession" que es donde se aloja el inicio de sesión, esta no importa que esté vacía, la app se encarga de llenarla y vaciarla de forma automática, pero debe existir con las mismas credenciales.
+
+   Las credenciales se pueden cambiar desde las propiedades de la app en Spring y desde la clase "Constantes" donde están las credenciales del controlador de JDBC.
 
 ## Plugins necesarios en Minecraft Server
 | Plugin | Descarga |
