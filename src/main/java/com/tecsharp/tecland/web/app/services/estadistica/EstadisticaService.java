@@ -5,12 +5,17 @@ import java.util.List;
 import com.tecsharp.tecland.web.app.models.Estadistica;
 
 public interface EstadisticaService {
-	
-	public List<Estadistica>obtieneListEst1(String UUID);
-	public List<Estadistica>obtieneListEst2(String UUID);
-	public Estadistica ObtieneUserDeaths(String UUID);
-	public Estadistica ObtieneUserKill(String UUID);
-	public Estadistica ObtieneUserPlayedtime(String UUID);
-	public Estadistica ObtieneUserBreaks(String UUID);
+
+	List<Estadistica> obtieneListEst1(String UUID);
+
+	List<Estadistica> obtieneListEst2(String UUID);
+
+	Estadistica ObtieneUserDeaths(String UUID);
+
+	Estadistica ObtieneUserKill(String UUID);
+
+	Estadistica ObtieneUserPlayedtime(String UUID);
+
+	Estadistica ObtieneUserBreaks(String UUID);
 
 }

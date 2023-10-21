@@ -2,7 +2,6 @@ package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,11 +24,11 @@ import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
-import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
+import com.tecsharp.tecland.web.app.utils.Constantes;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class UsuarioPerfilController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,9 +40,6 @@ public class UsuarioPerfilController implements Serializable {
 	@Autowired
 	@Qualifier("perfilServicePrincipal")
 	private PerfilService perfilService;
-
-	@Autowired
-	private TrabajoService trabajoService;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -62,63 +58,74 @@ public class UsuarioPerfilController implements Serializable {
 				|| username.equals("login") || username.equals("Login")) {
 			return "redirect:/login";
 		}
-		
+
 		Usuario user = usuarioService.checkUserExist(username);
-		if(user.getUsername() == null) {
+		if (user.getUsername() == null) {
 			return "redirect:/error";
 		}
 
 		Integer id = (Integer) req.getSession().getAttribute("ID");
 		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
 
-		model.addAttribute("usernameLogged", usernameLogged);
-		model.addAttribute("userLoggedId", id);
-
-		if (id != null) {
-			ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
-			model.addAttribute("amigosLista", amigosLista);
-
-			ArrayList<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
-			
-			model.addAttribute("notificacionesLista", notificacionesLista);
-
-			ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
-			
-			model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
-
-		} if (username != null) {
-			try {
+		try {
+			if (id != null) {
 				
-				//COMPROBAR SI EL USUARIO EXISTE, SI EXISTE IR A BUSCARLO A LA BASE DE DATOS
-				Perfil perfil = perfilService.obtenerPerfilDeUsuario(username);
+				/*
+				 * ENVIO DE LISTA DE AMIGOS, NOTIFICACIONES
+				 * */
+				List<Amigo> amigosLista = amigoService.obtenerListaAmigos(id);
+				model.addAttribute("amigosLista", amigosLista);
 
-				if (perfil == null) {
-					return "redirect:/error";
+				List<Notificacion> notificacionesLista = notificacionService.obtenerNotificacionesUsuario(id);
+
+				model.addAttribute("notificacionesLista", notificacionesLista);
+
+				List<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(username, id);
+
+				model.addAttribute("listaBusquedaAmigos", listaBusquedaAmigos);
+
+			} else {
+				// SE MANDA UN MENSAJE AL NO TENER LA SESION INICIADA
+				model.addAttribute("mensaje", Constantes.NO_USER_LOGGED);
+				return "forward:/error";
+			}
+			if (username != null) {
+
+				// COMPROBAR SI EL USUARIO EXISTE, SI EXISTE IRÁ A BUSCARLO A LA BASE DE DATOS
+				Perfil perfilBusqueda = perfilService.obtenerPerfilDeUsuario(username);
+				
+				// SI EL PERFIL QUE BUSCÓ NO EXISTE, REDIRIGE A ERROR CON UN MENSAJE.
+				if (perfilBusqueda == null) {
+					model.addAttribute("mensaje", Constantes.PROFILE_NOT_FOUND);
+					return "forward:/error";
 				}
 
-				List<Logro> listaLogros = perfil.getLogros();
+				/* 
+				 * Se recoge la lista de logros en el perfil y se recorre para saber si el usuario tiene 2 logros
+				 * Si el usuario tiene el logro "place_5_chest" unicamente, se muestra.
+				 * Si el usuario tiene el logro "place_5_chest" y "place_50_chest" se elimina el primero y se muestra el segundo
+				 * */
+				List<Logro> listaLogros = perfilBusqueda.getLogros();
 				for (Logro lista : listaLogros) {
 
-					if (lista.getDbname().equals("place_50_chest")) {
-						listaLogros.removeIf(Logro -> Logro.getDbname().equals("place_5_chest"));
+					if (lista.getDbname().equals(Constantes.PLACE_50_CHEST)) {
+						listaLogros.removeIf(Logro -> Logro.getDbname().equals(Constantes.PLACE_5_CHEST));
 
 					}
 
 				}
+				
+				//PERFIL DE USUARIO BUSCADO
+				model.addAttribute("perfilBusqueda", perfilBusqueda);
+				
+				//PERFIL DEL USUARIO LOGUEADO
+				model.addAttribute("perfil", perfilService.obtenerPerfilDeUsuario(usernameLogged));
 
-				model.addAttribute("perfil", perfil);
-				model.addAttribute("perfilUsuarioLogged", perfilService.obtenerPerfilDeUsuario(usernameLogged));
-
-				model.addAttribute("logrosListaUser", perfil.getLogros());
-				model.addAttribute("trabajosActivos",
-						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
-				model.addAttribute("trabajosNoActivos",
-						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
-			} catch (Exception e) {
-				return "redirect:/error";
 			}
 
-		} 
+		} catch (Exception e) {
+			return "redirect:/error";
+		}
 
 		return "usuariop";
 	}

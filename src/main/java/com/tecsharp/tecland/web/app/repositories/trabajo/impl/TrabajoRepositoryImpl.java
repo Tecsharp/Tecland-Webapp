@@ -44,7 +44,7 @@ public class TrabajoRepositoryImpl implements TrabajoRepository {
     public ArrayList<Trabajo> obtenerTrabajosNoActivos(Integer idUser) {
         //OBTIENE LOS TRABAJOS ACTIVOS DEL USUARIO
         ArrayList<Trabajo> listaTrabajosNoActivos = new ArrayList<>();
-        String query3 = "SELECT job, level FROM jobs_archive WHERE userid = ?";
+        String query3 = "SELECT job, level, img FROM jobs_archive JOIN jobs_jobnames on jobs_jobnames.name = jobs_archive.job  WHERE jobs_archive.userid = ?";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query3)) {
@@ -56,6 +56,7 @@ public class TrabajoRepositoryImpl implements TrabajoRepository {
                 Trabajo trabajo = new Trabajo();
                 trabajo.setNombre(result.getString("job"));
                 trabajo.setNivel(result.getInt("level"));
+                trabajo.setImg(result.getString("img"));
                 listaTrabajosNoActivos.add(trabajo);
             }
         } catch (Exception e) {

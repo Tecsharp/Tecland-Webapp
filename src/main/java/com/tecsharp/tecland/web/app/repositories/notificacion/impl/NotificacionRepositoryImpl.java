@@ -12,114 +12,107 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class NotificacionRepositoryImpl implements NotificacionRepository {
-	
-	
 
 	PerfilService perfilService = new PerfilServiceImpl();
 
 	UsuarioService usuarioService = new UsuarioServiceImpl();
-	
-	
-	
-	
-	
-    @Override
-    public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameiD, Integer amigoId) {
-        String query = "insert into notificaciones values (0, ?, ?, 'Agregar', '" + username + "' ' te ha enviado una solicitud de amistad', 1, 'test');";
 
-        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
-             PreparedStatement statement = connection.prepareStatement(query)) {
+	@Override
+	public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameiD, Integer amigoId) {
+		String query = "insert into notificaciones values (0, ?, ?, 'Agregar', '" + username + "' '"
+				+ Constantes.MSG_FRIEND_REQUEST_RECEIVED + "', 1, 'test');";
 
-            statement.setInt(1, amigoId);
-            statement.setInt(2, usernameiD);
-            statement.executeUpdate();
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+			statement.setInt(1, amigoId);
+			statement.setInt(2, usernameiD);
+			statement.executeUpdate();
 
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 
-        return true;
-    }
+		}
 
-    @Override
-    public ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
-    	
-    	
-    	
-        ArrayList<Notificacion> listaNotificaciones = new ArrayList<>();
-        String query3 = "select * from notificaciones where usuarioId = ?;";
+		return true;
+	}
 
-        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
-             PreparedStatement statement = connection.prepareStatement(query3)) {
+	@Override
+	public List<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
 
-            statement.setInt(1, usuarioId);
-            ResultSet result = statement.executeQuery();
+		List<Notificacion> listaNotificaciones = new ArrayList<>();
+		String query3 = "select * from notificaciones where usuarioId = ?;";
 
-            while (result.next()) {
-                Notificacion notificacion = new Notificacion();
-                notificacion.setId(result.getInt("id"));
-                notificacion.setUsuarioId(result.getInt("usuarioIdSender"));
-                String name = usuarioService.findById(result.getInt("usuarioIdSender"));
-            	String urlImg = perfilService.recuperarLinkAvatarURL(name);
-                notificacion.setImgUsuarioSender(urlImg);
-                notificacion.setNotificacionMensaje(result.getString("notificacionMensaje"));
-                notificacion.setEstado(result.getInt("estado"));
-                notificacion.setUrl(result.getString("url"));
-                if(notificacion.getEstado() == 1) {
-                listaNotificaciones.add(notificacion);
-                } 
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query3)) {
 
-        return listaNotificaciones;
-    }
+			statement.setInt(1, usuarioId);
+			ResultSet result = statement.executeQuery();
 
-    @Override
-    public Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId) {
-        String query = "DELETE FROM notificaciones WHERE usuarioIdSender = ? and usuarioId = ?;";
+			while (result.next()) {
+				Notificacion notificacion = new Notificacion();
+				notificacion.setId(result.getInt("id"));
+				notificacion.setUsuarioId(result.getInt("usuarioIdSender"));
+				String name = usuarioService.findById(result.getInt("usuarioIdSender"));
+				String urlImg = perfilService.recuperarLinkAvatarURL(name);
+				notificacion.setImgUsuarioSender(urlImg);
+				notificacion.setNotificacionMensaje(result.getString("notificacionMensaje"));
+				notificacion.setEstado(result.getInt("estado"));
+				notificacion.setUrl(result.getString("url"));
+				if (notificacion.getEstado() == 1) {
+					listaNotificaciones.add(notificacion);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
-             PreparedStatement statement = connection.prepareStatement(query)) {
+		return listaNotificaciones;
+	}
 
-            statement.setInt(1, usuarioId);
-            statement.setInt(2, amigoId);
-            statement.executeUpdate();
+	@Override
+	public Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId) {
+		String query = "DELETE FROM notificaciones WHERE usuarioIdSender = ? and usuarioId = ?;";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
 
-        return true;
-    }
+			statement.setInt(1, usuarioId);
+			statement.setInt(2, amigoId);
+			statement.executeUpdate();
 
-    @Override
-    public Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId) {
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 
-        String query = "UPDATE notificaciones SET estado = 0 WHERE usuarioId = ?";
+		return true;
+	}
 
-        try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
-             PreparedStatement statement = connection.prepareStatement(query)) {
+	@Override
+	public Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId) {
 
-            statement.setInt(1, usuarioId);
-            statement.executeUpdate();
+		String query = "UPDATE notificaciones SET estado = 0 WHERE usuarioId = ?";
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
 
-        return true;
-    }
+			statement.setInt(1, usuarioId);
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
 }

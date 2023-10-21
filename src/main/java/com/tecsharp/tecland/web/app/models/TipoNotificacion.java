@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class TipoNotificacion implements Serializable{
 
-    private Integer id;
+    private static final long serialVersionUID = -2857021815983053700L;
+	private Integer id;
     private String tipoNotificacion;
 
 }

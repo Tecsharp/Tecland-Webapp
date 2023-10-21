@@ -2,12 +2,11 @@ package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +17,13 @@ import com.tecsharp.tecland.web.app.models.Perfil;
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
+import com.tecsharp.tecland.web.app.utils.Constantes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping({ "" })
+@RequestMapping({ "/" })
 public class AmigoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,18 +49,19 @@ public class AmigoController implements Serializable {
 				Perfil perfil = perfilService
 						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
 				model.addAttribute("perfil", perfil);
+				model.addAttribute("perfilUsuarioLogged", perfilService.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME")));
 
-				ArrayList<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(busqueda, userId); //BUSCA AL USUARIO
+				List<Amigo> listaBusquedaAmigos = amigoService.obtenerListaDeAmigos(busqueda, userId); //BUSCA AL USUARIO
 				req.setAttribute("listaBusquedaAmigos", listaBusquedaAmigos); // SE ENVIA AL REQUEST
 
-				ArrayList<Notificacion> notificacionesLista = notificacionService
+				List<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
 				
 				if(listaBusquedaAmigos.isEmpty()) {
 					
 					
-					model.addAttribute("noUsuario", "No se encontró el usuario: " + busqueda);
+					model.addAttribute("noUsuario", Constantes.NO_USER_FOUND + busqueda);
 					return "busqueda";
 				}
 
@@ -76,7 +77,6 @@ public class AmigoController implements Serializable {
 	@PostMapping({ "/aceptar-amigo" })
 	public String aceptarAmigo(@RequestParam Integer idUsuarioSolicitud, HttpServletRequest req, Model model) {
 		String usuario = (String) req.getSession().getAttribute("USERNAME");
-		Integer userId = Integer.valueOf(req.getParameter("idUsuarioSolicitud"));
 
 		if (usuario != null) {
 			amigoService.aceptarSolicitudDeAmistad(idUsuarioSolicitud, (Integer) req.getSession().getAttribute("ID"));

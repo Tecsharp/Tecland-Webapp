@@ -2,7 +2,6 @@ package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,14 +25,14 @@ import com.tecsharp.tecland.web.app.services.estadistica.EstadisticaService;
 import com.tecsharp.tecland.web.app.services.login.LoginService;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
-import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class PerfilController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 6966533466813479613L;
 
 	@Autowired
 	@Qualifier("loginServiceSession")
@@ -42,9 +41,6 @@ public class PerfilController implements Serializable {
 	@Autowired
 	@Qualifier("perfilServicePrincipal")
 	private PerfilService perfilService;
-
-	@Autowired
-	private TrabajoService trabajoService;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -64,15 +60,19 @@ public class PerfilController implements Serializable {
 		
 		String usernameLogged = (String) req.getSession().getAttribute("USERNAME");
 		
-		
-		
 		if (usernameLogged != null) {
 
 			try {
 
 				Perfil perfil = perfilService
 						.obtenerPerfilDeUsuario((String) req.getSession().getAttribute("USERNAME"));
-
+				
+				
+				/* 
+				 * Se recoge la lista de logros en el perfil y se recorre para saber si el usuario tiene 2 logros
+				 * Si el usuario tiene el logro "place_5_chest" unicamente, se muestra.
+				 * Si el usuario tiene el logro "place_5_chest" y "place_50_chest" se elimina el primero y se muestra el segundo
+				 * */
 				List<Logro> listaLogros = perfil.getLogros();
 				for (Logro lista : listaLogros) {
 
@@ -82,26 +82,23 @@ public class PerfilController implements Serializable {
 					}
 
 				}
-
+				
+				//SE MANDA PERFIL
 				model.addAttribute("perfil", perfil);
-				model.addAttribute("logrosListaUser", perfil.getLogros());
-
-				model.addAttribute("trabajosActivos",
-						trabajoService.obtenerTrabajosActivos(perfil.getUsuario().getId()));
-				model.addAttribute("trabajosNoActivos",
-						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
-
-				ArrayList<Amigo> amigosLista = amigoService.obtenerListaAmigos(perfil.getUsuario().getId());
+	
+				//lISTA DE AMIGOS EN PERFIL
+				List<Amigo> amigosLista = amigoService.obtenerListaAmigos(perfil.getUsuario().getId());
 				model.addAttribute("amigosLista", amigosLista);
-
-				ArrayList<Notificacion> notificacionesLista = notificacionService
+				
+				//LISTA DE NOTIFICACIONES DEL PERFIL
+				List<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
 
-				model.addAttribute("perfilUsuarioUsername", perfil.getUsuario().getUsername());
-				model.addAttribute("perfilUsuarioLogged", perfilService.obtenerPerfilDeUsuario(usernameLogged));
-				
+				//TITULO DE LA PAGINA
 				model.addAttribute("titulo", "Perfil | Tecland");
+				
+				// ESTADISTICAS DEL NAVBAR // 
 				model.addAttribute("userDeaths", estService.ObtieneUserDeaths(perfil.getUsuario().getUUID()));
 				model.addAttribute("userKill", estService.ObtieneUserKill(perfil.getUsuario().getUUID()));
 				model.addAttribute("userBreaks", estService.ObtieneUserBreaks(perfil.getUsuario().getUUID()));

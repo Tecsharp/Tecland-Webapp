@@ -8,12 +8,9 @@ import java.util.List;
 import java.util.Date;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.tecsharp.tecland.web.app.models.Logro;
-import com.tecsharp.tecland.web.app.models.Usuario;
 import com.tecsharp.tecland.web.app.repositories.logros.LogrosRepository;
 import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.perfil.impl.PerfilServiceImpl;

@@ -5,42 +5,38 @@ import com.tecsharp.tecland.web.app.repositories.notificacion.NotificacionReposi
 import com.tecsharp.tecland.web.app.repositories.notificacion.impl.NotificacionRepositoryImpl;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @Primary
 public class NotificacionServiceImpl implements NotificacionService {
 
-    NotificacionRepository notificacionRepository = new NotificacionRepositoryImpl();
+	NotificacionRepository notificacionRepository = new NotificacionRepositoryImpl();
 
-    @Override
-    public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameId, Integer amigoId) {
+	@Override
+	public Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameId, Integer amigoId) {
 
+		return notificacionRepository.mandaNotificacionAUsuarioAgregado(username, usernameId, amigoId);
+	}
 
-        return notificacionRepository.mandaNotificacionAUsuarioAgregado(username, usernameId, amigoId);
-    }
+	@Override
+	public List<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
+		List<Notificacion> listaNotificaciones = notificacionRepository.obtenerNotificacionesUsuario(usuarioId);
 
-    @Override
-    public ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId) {
-        ArrayList<Notificacion> listaNotificaciones = notificacionRepository.obtenerNotificacionesUsuario(usuarioId);
-        
-        
-        
-        return listaNotificaciones;
-    }
+		return listaNotificaciones;
+	}
 
-    @Override
-    public Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId) {
-        return notificacionRepository.eliminarNotificacionAgregarAmigo(usuarioId, amigoId);
-    }
+	@Override
+	public Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId) {
+		return notificacionRepository.eliminarNotificacionAgregarAmigo(usuarioId, amigoId);
+	}
 
-    @Override
-    public Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId) {
+	@Override
+	public Boolean deshabilitarNotificacionSolicitudAmistad(Integer usuarioId, Integer amigoId) {
 
-        return notificacionRepository.deshabilitarNotificacionSolicitudAmistad(usuarioId, amigoId);
-    }
+		return notificacionRepository.deshabilitarNotificacionSolicitudAmistad(usuarioId, amigoId);
+	}
 }

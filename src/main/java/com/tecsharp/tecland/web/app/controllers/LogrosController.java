@@ -2,7 +2,6 @@ package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -23,7 +22,7 @@ import com.tecsharp.tecland.web.app.services.perfil.PerfilService;
 import com.tecsharp.tecland.web.app.services.trabajo.TrabajoService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class LogrosController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -73,7 +72,7 @@ public class LogrosController implements Serializable {
 						trabajoService.obtenerTrabajosNoActivos(perfil.getUsuario().getId()));
 
 
-				ArrayList<Notificacion> notificacionesLista = notificacionService
+				List<Notificacion> notificacionesLista = notificacionService
 						.obtenerNotificacionesUsuario((Integer) req.getSession().getAttribute("ID"));
 				req.setAttribute("notificacionesLista", notificacionesLista);
 

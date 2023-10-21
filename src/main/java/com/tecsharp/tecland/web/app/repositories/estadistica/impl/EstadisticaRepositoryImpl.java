@@ -27,9 +27,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Veces muerto");
-				est.setValor(result.getString("deaths"));
-				est.setImg("/icons/totem.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_DEATHS);
+				est.setValor(result.getString(Constantes.ACHIEV_DEATHS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_DEATHS);
 
 			}
 
@@ -38,9 +38,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Veces muerto");
+			est2.setDescripcion(Constantes.ACHIEV_DES_DEATHS);
 			est2.setValor("0");
-			est2.setImg("/icons/totem.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_DEATHS);
 			return est2;
 		}
 		return est;
@@ -50,7 +50,7 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 	public Estadistica obtieneBeds(String UUID) {
 
 		Estadistica est = new Estadistica();
-		// OBTIENE LAS CAMAS
+
 		String query = "Select * from beds WHERE playername = ?";
 
 		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
@@ -60,9 +60,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Camas usadas");
-				est.setValor(result.getString("beds"));
-				est.setImg("/icons/bed.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_BEDS);
+				est.setValor(result.getString(Constantes.ACHIEV_BEDS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_BEDS);
 
 			}
 
@@ -71,9 +71,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Camas usadas");
+			est2.setDescripcion(Constantes.ACHIEV_DES_BEDS);
 			est2.setValor("0");
-			est2.setImg("/icons/bed.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_BEDS);
 			return est2;
 		}
 		return est;
@@ -82,7 +82,7 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 	@Override
 	public Estadistica obtieneBreaks(String UUID) {
 		Estadistica est = new Estadistica();
-		// OBTIENE LAS CAMAS
+
 		String query = "Select breaks from breaks WHERE playername = ? and blockid = ?";
 
 		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
@@ -93,9 +93,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Bloques rotos");
-				est.setValor(result.getString("breaks"));
-				est.setImg("/icons/block1.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_BREAKS);
+				est.setValor(result.getString(Constantes.ACHIEV_BREAKS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_BREAKS);
 
 			}
 
@@ -104,9 +104,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Bloques rotos");
+			est2.setDescripcion(Constantes.ACHIEV_BREAKS);
 			est2.setValor("0");
-			est2.setImg("/icons/block1.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_BREAKS);
 			return est2;
 		}
 		return est;
@@ -115,7 +115,7 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 	@Override
 	public Estadistica obtieneArrows(String UUID) {
 		Estadistica est = new Estadistica();
-		// OBTIENE LAS CAMAS
+
 		String query = "Select * from arrows WHERE playername = ?";
 
 		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
@@ -125,9 +125,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Flechas lanzadas");
-				est.setValor(result.getString("arrows"));
-				est.setImg("/icons/arrow.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_ARROWS);
+				est.setValor(result.getString(Constantes.ACHIEV_ARROWS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_ARROWS);
 
 			}
 
@@ -136,9 +136,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Flechas lanzadas");
+			est2.setDescripcion(Constantes.ACHIEV_DES_ARROWS);
 			est2.setValor("0");
-			est2.setImg("/icons/arrow.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_ARROWS);
 			return est2;
 		}
 		return est;
@@ -147,7 +147,7 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 	@Override
 	public Estadistica obtieneDistanceHorse(String UUID) {
 		Estadistica est = new Estadistica();
-		// OBTIENE LAS CAMAS
+		
 		String query = "Select * from distancehorse WHERE playername = ?";
 
 		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
@@ -158,9 +158,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 
 			while (result.next()) {
 
-				est.setDescripcion("Bloques recorridos en caballo");
-				est.setValor(result.getString("distancehorse"));
-				est.setImg("/icons/HorseDiamond.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_DISTANCEHORSE);
+				est.setValor(result.getString(Constantes.ACHIEV_DISTANCEHORSE));
+				est.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEHORSE);
 
 			}
 
@@ -170,9 +170,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Bloques recorridos en caballo");
+			est2.setDescripcion(Constantes.ACHIEV_DES_DISTANCEHORSE);
 			est2.setValor("0");
-			est2.setImg("/icons/HorseDiamond.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEHORSE);
 			return est2;
 		}
 		return est;
@@ -192,9 +192,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 
 			while (result.next()) {
 
-				est.setDescripcion("Bloques recorridos en bote");
-				est.setValor(result.getString("distanceboat"));
-				est.setImg("/icons/Boat.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_DISTANCEBOAT);
+				est.setValor(result.getString(Constantes.ACHIEV_DISTANCEBOAT));
+				est.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEBOAT);
 				
 
 			}
@@ -205,9 +205,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Bloques recorridos en bote");
+			est2.setDescripcion(Constantes.ACHIEV_DES_DISTANCEBOAT);
 			est2.setValor("0");
-			est2.setImg("/icons/Boat.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEBOAT);
 			return est2;
 		}
 		return est;
@@ -226,9 +226,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Bloques recorridos a pie");
-				est.setValor(result.getString("distancefoot"));
-				est.setImg("/icons/goldfeet.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_DISTANCEFOOT);
+				est.setValor(result.getString(Constantes.ACHIEV_DISTANCEFOOT));
+				est.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEFOOT);
 
 			}
 
@@ -237,9 +237,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Bloques recorridos a pie");
+			est2.setDescripcion(Constantes.ACHIEV_DES_DISTANCEFOOT);
 			est2.setValor("0");
-			est2.setImg("/icons/goldfeet.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_DISTANCEFOOT);
 			return est2;
 		}
 		return est;
@@ -249,19 +249,18 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 	public Estadistica obtieneKills(String UUID) {
 		Estadistica est = new Estadistica();
 		// OBTIENE LAS CAMAS
-		String query = "Select * from kills WHERE playername = ? and mobname = ?";
+		String query = "Select sum(kills) from kills WHERE playername = ?";
 
 		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
 				PreparedStatement statement = connection.prepareStatement(query)) {
 
 			statement.setString(1, UUID);
-			statement.setString(2, "zombie");
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Mobs asesinados");
-				est.setValor(result.getString("kills"));
-				est.setImg("/icons/diamond_sword.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_KILLS);
+				est.setValor(result.getString(Constantes.ACHIEV_KILLS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_KILLS);
 
 			}
 
@@ -270,9 +269,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Mobs asesinados");
+			est2.setDescripcion(Constantes.ACHIEV_DES_KILLS);
 			est2.setValor("0");
-			est2.setImg("/icons/diamond_sword.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_KILLS);
 			return est2;
 		}
 		return est;
@@ -291,9 +290,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Objetos tirados al suelo");
-				est.setValor(result.getString("drops"));
-				est.setImg("/icons/rottenmeat.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_DROPS);
+				est.setValor(result.getString(Constantes.ACHIEV_DROPS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_DROPS);
 
 			}
 
@@ -302,9 +301,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Objetos tirados al suelo");
+			est2.setDescripcion(Constantes.ACHIEV_DES_DROPS);
 			est2.setValor("0");
-			est2.setImg("/icons/rottenmeat.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_DROPS);
 			return est2;
 		}
 		return est;
@@ -323,9 +322,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Objetos comidos");
-				est.setValor(result.getString("eatenitems"));
-				est.setImg("/icons/meat.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_EATENITEMS);
+				est.setValor(result.getString(Constantes.ACHIEV_EATENITEMS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_EATENITEMS);
 
 			}
 
@@ -334,9 +333,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Objetos comidos");
+			est2.setDescripcion(Constantes.ACHIEV_DES_EATENITEMS);
 			est2.setValor("0");
-			est2.setImg("/icons/meat.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_EATENITEMS);
 			return est2;
 		}
 		return est;
@@ -355,9 +354,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Pociones bebidas");
-				est.setValor(result.getString("consumedpotions"));
-				est.setImg("/icons/posion.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_CONSUMEDPOTIONS);
+				est.setValor(result.getString(Constantes.ACHIEV_CONSUMEDPOTIONS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_CONSUMEDPOTIONS);
 
 			}
 
@@ -366,9 +365,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Pociones bebidas");
+			est2.setDescripcion(Constantes.ACHIEV_DES_CONSUMEDPOTIONS);
 			est2.setValor("0");
-			est2.setImg("/icons/posion.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_CONSUMEDPOTIONS);
 			return est2;
 		}
 		return est;
@@ -387,9 +386,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Tradeos");
-				est.setValor(result.getString("trades"));
-				est.setImg("/icons/gold.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_TRADES);
+				est.setValor(result.getString(Constantes.ACHIEV_TRADES));
+				est.setImg(Constantes.ACHIEV_IMG_URL_TRADES);
 
 			}
 
@@ -398,9 +397,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Tradeos");
+			est2.setDescripcion(Constantes.ACHIEV_DES_TRADES);
 			est2.setValor("0");
-			est2.setImg("/icons/gold.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_TRADES);
 			return est2;
 		}
 		return est;
@@ -419,9 +418,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Objetos recogidos");
-				est.setValor(result.getString("pickups"));
-				est.setImg("/icons/orange_shulker.png");
+				est.setDescripcion(Constantes.ACHIEV_DES_PICKUPS);
+				est.setValor(result.getString(Constantes.ACHIEV_PICKUPS));
+				est.setImg(Constantes.ACHIEV_IMG_URL_PICKUPS);
 
 			}
 
@@ -430,9 +429,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Objetos recogidos");
+			est2.setDescripcion(Constantes.ACHIEV_DES_PICKUPS);
 			est2.setValor("0");
-			est2.setImg("/icons/orange_shulker.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_PICKUPS);
 			return est2;
 		}
 		return est;
@@ -451,13 +450,13 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
-				est.setDescripcion("Tiempo jugado");
+				est.setDescripcion(Constantes.ACHIEV_DES_PLAYEDTIME);
 				
 				Integer tiempoJugado = result.getInt("playedtime");
 				Double tj = (double) ((tiempoJugado / 60000) / 60);
 				
 				est.setValor(tj.toString() + " horas");
-				est.setImg("/icons/brujula.png");
+				est.setImg(Constantes.ACHIEV_IMG_URL_PLAYEDTIME);
 
 			}
 
@@ -466,9 +465,9 @@ public class EstadisticaRepositoryImpl implements EstadisticaRepository {
 		}
 		if (est.getValor() == null) {
 			Estadistica est2 = new Estadistica();
-			est2.setDescripcion("Tiempo jugado");
+			est2.setDescripcion(Constantes.ACHIEV_DES_PLAYEDTIME);
 			est2.setValor("0 horas");
-			est2.setImg("/icons/brujula.png");
+			est2.setImg(Constantes.ACHIEV_IMG_URL_PLAYEDTIME);
 			return est2;
 		}
 		return est;

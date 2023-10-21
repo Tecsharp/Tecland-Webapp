@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class Informacion implements Serializable{
 
-    private Integer id;
+    private static final long serialVersionUID = 1162055351081913565L;
+	private Integer id;
     private String informacion;
 
 }

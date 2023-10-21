@@ -5,8 +5,6 @@ import com.tecsharp.tecland.web.app.models.Usuario;
 
 import java.util.Optional;
 
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 //import javax.servlet.http.HttpServletRequest;
 

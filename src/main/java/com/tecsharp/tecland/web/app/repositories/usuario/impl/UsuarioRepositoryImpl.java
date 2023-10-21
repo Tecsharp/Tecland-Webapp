@@ -257,7 +257,6 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 	@Override
 	public List<Usuario> getAllUsers() {
 		Usuario usuario = null;
-		Utilidades utils = new Utilidades();
 
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		String query = "SELECT * FROM authme";
@@ -272,17 +271,18 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 				usuario.setId(result.getInt("id"));
 				usuario.setUsername(result.getString("realname"));
 				// usuario.setVip(result.getInt("vip"));
-				// usuario.setDinero(result.getInt("dinero"));
+				// usuario.setDinero(result.getDouble("money"));
 				// usuario.setPassword(result.getString("password"));
 				usuario.setCorreo(result.getString("email"));
 				usuario.setUltimaIp(result.getString("ip"));
 				usuario.setEstadoConexion(result.getInt("isLogged"));
-				usuario.setUltimaConexion(result.getLong("lastlogin"));
+				usuario.setUltimaConString(Utilidades.convertirLongToDate(result.getLong("regdate")));
 				usuario.setBiografia(result.getString("biografia"));
 				usuario.setIsAdmin(result.getInt("admin"));
+				usuario.setDinero(UsuarioRepositoryImpl.obtenerDinero(usuario.getUsername()));
 				usuario.setPuntosTrabajoActual(UsuarioRepositoryImpl.getCurrentPoints(usuario.getId()));
 
-				usuario.setImgAvatar(utils.recuperarLinkAvatarURL(usuario.getUsername()));
+				usuario.setImgAvatar(Utilidades.recuperarLinkAvatarURL(usuario.getUsername()));
 				usuarios.add(usuario);
 
 			}
@@ -318,6 +318,105 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 		}
 		return newInput;
 
+	}
+
+	@Override
+	public void actualizarDineroUsuario(Usuario usuario) {
+		String query = "UPDATE essentials_userdata SET money = ? WHERE player_uuid = ?";
+
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
+
+			statement.setDouble(1, usuario.getDinero()); // Biografia
+			statement.setString(2, usuario.getUUID()); // Biografia
+
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	@Override
+	public void actualizarPuntosDeTrabajoUsuario(Usuario usuario) {
+		String query = "UPDATE jobs_points SET currentpoints = ? WHERE userid = ?";
+
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
+
+			statement.setDouble(1, usuario.getPuntosTrabajoActual());
+			statement.setInt(2, usuario.getId());
+
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	@Override
+	public void actualizarInfoAuthme(Usuario usuario) {
+		String query = "UPDATE authme SET email = ?, biografia = ? WHERE id = ?";
+
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query)) {
+
+			statement.setString(1, usuario.getCorreo());
+			statement.setString(2, usuario.getBiografia());
+			statement.setInt(3, usuario.getId());
+
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
+	@Override
+	public String obtieneUUID(Usuario usuario) {
+		// OBTIENE EL UUID
+		String UUID = null;
+		String query6 = "select player_uuid from jobs_users where username = ?";
+
+		try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+				PreparedStatement statement = connection.prepareStatement(query6)) {
+
+			statement.setString(1, usuario.getUsername());
+			ResultSet result = statement.executeQuery();
+
+			while (result.next()) {
+				UUID = result.getString("player_uuid");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return UUID;
+	}
+
+	public static Double obtenerDinero(String username) {
+		Double money = null;
+		
+		// OBTIENE EL DINERO DEL USUARIO
+				String query = "select money from essentials_userdata where player_name = ?";
+
+				try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
+						PreparedStatement statement = connection.prepareStatement(query)) {
+
+					statement.setString(1, username);
+					ResultSet result = statement.executeQuery();
+
+					while (result.next()) {
+						money = result.getDouble("money");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				}
+		 
+		return money;
 	}
 
 }

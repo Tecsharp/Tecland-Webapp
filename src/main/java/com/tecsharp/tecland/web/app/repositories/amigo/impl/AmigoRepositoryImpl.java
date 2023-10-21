@@ -9,10 +9,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AmigoRepositoryImpl implements AmigoRepository {
     @Override
-    public ArrayList<Amigo> obtenerAmigos(Integer usernameId) {
+    public List<Amigo> obtenerAmigos(Integer usernameId) {
         Integer estado = null;
 
         ArrayList<Amigo> amigosLista = new ArrayList<>();
@@ -65,7 +66,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
     }
 
     @Override
-    public ArrayList<Amigo> obtenerListaDeAmigosEnBusqueda(String username) {
+    public List<Amigo> obtenerListaDeAmigosEnBusqueda(String username) {
 
         //OBTIENE INFORMACION DE AMIGOS
         ArrayList<Amigo> amigos = new ArrayList<>();
@@ -122,7 +123,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
         Integer dbUsuarioSender = null;
         Integer dbUsuarioId = null;
         Integer dbEstado = null;
-        String query2 = "select * from notificaciones where usuarioId = ? and usuarioIdSender = ? and estado = ?;";
+        String query2 = "select * from notificaciones where usuarioId = ? and usuarioIdSender = ? and estado = ?";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query2)) {
@@ -156,7 +157,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
         Integer dbUsuarioReceptor = null;
         Integer dbUsuarioEmisor = null;
         Boolean solicitudEnviada = false;
-        String query2 = "SELECT * FROM solicitudesAmistad where usuarioEmisor = ? and usuarioReceptor = ?;";
+        String query2 = "SELECT * FROM solicitudesAmistad where usuarioEmisor = ? and usuarioReceptor = ?";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query2)) {
@@ -186,7 +187,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
 
     @Override
     public Boolean agregarAmigoLista(Integer usuarioId, Integer amigoId) {
-        String query = "INSERT INTO amigos VAlUE (0,?,?);";
+        String query = "INSERT INTO amigos VAlUE (0,?,?)";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -206,7 +207,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
     @Override
     public Boolean registrarSolicitudDeAmistad(Integer usuarioEmisor, Integer usuarioReceptor) {
 
-        String query = "INSERT INTO solicitudesAmistad VALUES (0, ?, ?);";
+        String query = "INSERT INTO solicitudesAmistad VALUES (0, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -226,7 +227,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
     @Override
     public Boolean eliminarSolicitudDeAmistad(Integer usuarioEmisor, Integer usuarioReceptor) {
 
-        String query = "DELETE FROM solicitudesAmistad WHERE usuarioEmisor = ? and usuarioReceptor = ?;";
+        String query = "DELETE FROM solicitudesAmistad WHERE usuarioEmisor = ? and usuarioReceptor = ?";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -246,7 +247,7 @@ public class AmigoRepositoryImpl implements AmigoRepository {
     @Override
     public Boolean aceptarSolicitudDeAmistad(Integer usuarioEmisor, Integer usuarioReceptor) {
 
-        String query = "INSERT INTO amigos VALUES (0, ?, ?);";
+        String query = "INSERT INTO amigos VALUES (0, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(Constantes.DB_PROPERTIES);
              PreparedStatement statement = connection.prepareStatement(query)) {

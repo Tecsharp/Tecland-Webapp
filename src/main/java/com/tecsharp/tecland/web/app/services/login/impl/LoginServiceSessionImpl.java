@@ -8,9 +8,7 @@ import com.tecsharp.tecland.web.app.services.login.LoginService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 
 @Component

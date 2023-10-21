@@ -9,8 +9,9 @@ import com.tecsharp.tecland.web.app.repositories.notificacion.impl.NotificacionR
 import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
 import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
 import com.tecsharp.tecland.web.app.services.notificacion.impl.NotificacionServiceImpl;
+import com.tecsharp.tecland.web.app.utils.Constantes;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,10 @@ public class AmigoServiceImpl implements AmigoService {
     AmigoRepository amigoRepository = new AmigoRepositoryImpl();
 
     @Override
-    public ArrayList<Amigo> obtenerListaDeAmigos(String busqueda, Integer userId) {
+    public List<Amigo> obtenerListaDeAmigos(String busqueda, Integer userId) {
 
 
-        ArrayList<Amigo> amigos = amigoRepository.obtenerListaDeAmigosEnBusqueda(busqueda);
+        List<Amigo> amigos = amigoRepository.obtenerListaDeAmigosEnBusqueda(busqueda);
         for (Amigo a : amigos) {
             a.setIsFriend(amigoRepository.obtieneIsFriend(userId, a.getId()));
             a.setSolicitudPendiente(amigoRepository.obtieneSolicitudPendiente(userId, a.getId()));
@@ -37,8 +38,8 @@ public class AmigoServiceImpl implements AmigoService {
     }
 
     @Override
-    public ArrayList<Amigo> obtenerListaAmigos(Integer usernameId) {
-    	ArrayList <Amigo> lista = amigoRepository.obtenerAmigos(usernameId);
+    public List<Amigo> obtenerListaAmigos(Integer usernameId) {
+    	List <Amigo> lista = amigoRepository.obtenerAmigos(usernameId);
     	for (Amigo a : lista) {
             a.setImageUrl(recuperarLinkAvatarURL(a.getNombre()));
         }
@@ -46,7 +47,7 @@ public class AmigoServiceImpl implements AmigoService {
     }
 
     @Override
-    public ArrayList<Amigo> compruebaAmigoAgregado(Integer usernameId) {
+    public List<Amigo> compruebaAmigoAgregado(Integer usernameId) {
 
 
         return null;
@@ -63,9 +64,9 @@ public class AmigoServiceImpl implements AmigoService {
     }
 
     @Override
-    public ArrayList<Notificacion> comprobacionDeSolicitud(Integer userId, Integer usuarioId) {
+    public List<Notificacion> comprobacionDeSolicitud(Integer userId, Integer usuarioId) {
         NotificacionRepository notificacionRepository = new NotificacionRepositoryImpl();
-        ArrayList<Notificacion> listaNotificaciones = notificacionRepository.obtenerNotificacionesUsuario(usuarioId);
+        List<Notificacion> listaNotificaciones = notificacionRepository.obtenerNotificacionesUsuario(usuarioId);
 
         return listaNotificaciones;
     }
@@ -132,7 +133,7 @@ public class AmigoServiceImpl implements AmigoService {
     @Override
 	public String recuperarLinkAvatarURL(String username) {
 		
-		return "https://minotar.net/armor/bust/" + username + ".png";
+		return Constantes.URL_IMG_AVATAR + username + ".png";
 	}
     
 

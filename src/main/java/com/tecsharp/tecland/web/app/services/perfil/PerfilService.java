@@ -5,17 +5,17 @@ import java.util.Date;
 import com.tecsharp.tecland.web.app.models.Perfil;
 
 public interface PerfilService {
-	
-	public String recuperarLinkAvatarURL(String username);
-	
-	public String recuperarNombreRealDeUsuarioMinecraft(String username);
-	
-	public Perfil obtenerPerfilDeUsuario(String username);
-	
-	public String actualizarBiografia(String biografia);
-	
-	public String convertirDateToString(Date fecha);
-	
-	public String obtenerNombrePorID(Integer id);
+
+	String recuperarLinkAvatarURL(String username);
+
+	String recuperarNombreRealDeUsuarioMinecraft(String username);
+
+	Perfil obtenerPerfilDeUsuario(String username);
+
+	String actualizarBiografia(String biografia);
+
+	String convertirDateToString(Date fecha);
+
+	String obtenerNombrePorID(Integer id);
 
 }

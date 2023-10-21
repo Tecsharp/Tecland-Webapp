@@ -1,40 +1,35 @@
 package com.tecsharp.tecland.web.app.repositories.estadistica;
 
-import java.util.List;
-
 import com.tecsharp.tecland.web.app.models.Estadistica;
 
 public interface EstadisticaRepository {
-	
-	
-	
-	public Estadistica obtieneDeaths(String UUID);
-	
-	public Estadistica obtieneBeds(String UUID);
-	
-	public Estadistica obtieneBreaks(String UUID);
-	
-	public Estadistica obtieneArrows(String UUID);
-	
-	public Estadistica obtieneDistanceHorse(String UUID);
-	
-	public Estadistica obtieneDistanceBoat(String UUID);
-	
-	public Estadistica obtieneDistanceFoot(String UUID);
-	
-	public Estadistica obtieneKills(String UUID);
-	
-	public Estadistica obtieneItemDrops(String UUID);
-	
-	public Estadistica obtieneEatenItems(String UUID);
-	
-	public Estadistica obtieneConsumedpotions(String UUID);
-	
-	public Estadistica obtieneTrades(String UUID);
-	
-	public Estadistica obtienePickups(String UUID);
-	
-	public Estadistica obtienePlaytime(String UUID);
-	
+
+	Estadistica obtieneDeaths(String UUID);
+
+	Estadistica obtieneBeds(String UUID);
+
+	Estadistica obtieneBreaks(String UUID);
+
+	Estadistica obtieneArrows(String UUID);
+
+	Estadistica obtieneDistanceHorse(String UUID);
+
+	Estadistica obtieneDistanceBoat(String UUID);
+
+	Estadistica obtieneDistanceFoot(String UUID);
+
+	Estadistica obtieneKills(String UUID);
+
+	Estadistica obtieneItemDrops(String UUID);
+
+	Estadistica obtieneEatenItems(String UUID);
+
+	Estadistica obtieneConsumedpotions(String UUID);
+
+	Estadistica obtieneTrades(String UUID);
+
+	Estadistica obtienePickups(String UUID);
+
+	Estadistica obtienePlaytime(String UUID);
 
 }

@@ -2,15 +2,15 @@ package com.tecsharp.tecland.web.app.repositories.amigo;
 
 import com.tecsharp.tecland.web.app.models.Amigo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface AmigoRepository {
 
-    ArrayList<Amigo> obtenerAmigos(Integer usernameId);
+    List<Amigo> obtenerAmigos(Integer usernameId);
 
     Integer obtenerEstadoConexionDeAmigo(String username);
 
-    ArrayList<Amigo> obtenerListaDeAmigosEnBusqueda(String username);
+    List<Amigo> obtenerListaDeAmigosEnBusqueda(String username);
 
     Boolean obtieneIsFriend(Integer usuarioEmisor, Integer usuarioReceptor);
 

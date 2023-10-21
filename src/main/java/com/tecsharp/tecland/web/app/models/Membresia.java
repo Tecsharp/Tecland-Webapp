@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class Membresia implements Serializable{
 
-    private Integer id;
+    private static final long serialVersionUID = -7969015317413670403L;
+	private Integer id;
     private String nombre;
     private String informacion;
     private Integer costo;

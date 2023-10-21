@@ -44,7 +44,7 @@
 									<div class="row">
 										<div class="col-9">
 											<div class="d-flex align-items-center align-self-start">
-												<h3 class="mb-0" th:text="'$' + ${perfilUsuarioLogged.usuario.dinero}"></h3>
+												<h3 class="mb-0" th:text="'$' + ${perfil.usuario.dinero}"></h3>
 											</div>
 										</div>
 
@@ -104,16 +104,16 @@
 						<div class="col-md-4 grid-margin stretch-card">
 							<div class="card">
 								<div class="card-body align-self-center">
-									<h4 class="text-md-center" th:text="${perfilUsuarioLogged.usuario.username}"></h4>
-									<img th:src="@{${perfilUsuarioLogged.imageUrl}}" th:alt="${perfilUsuarioLogged.usuario.username}"
+									<h4 class="text-md-center" th:text="${perfil.usuario.username}"></h4>
+									<img th:src="${perfil.imageUrl}" th:alt="${perfil.usuario.username}"
 										class="rounded-circle" width="150" />
 									<div
 										class=" d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
 										<div class="text-md-center text-xl-left">
 
-											<h6 class="mb-1" th:if="${perfilUsuarioLogged.usuario.estadoConexion == 0}">Desconectado
+											<h6 class="mb-1" th:if="${perfil.usuario.estadoConexion == 0}">Desconectado
 											</h6>
-											<h6 class="mb-1" th:unless="${perfilUsuarioLogged.usuario.estadoConexion == 0}">Conectado
+											<h6 class="mb-1" th:unless="${perfil.usuario.estadoConexion == 0}">Conectado
 											</h6>
 
 											<p class="text-muted mb-0">Estado</p>
@@ -126,7 +126,7 @@
 									<div
 										class="center d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
 										<div class="text-md-center text-xl-left">
-											<h6 class="mb-1" th:text="${perfilUsuarioLogged.usuario.ultimaIp}"></h6>
+											<h6 class="mb-1" th:text="${perfil.usuario.ultimaIp}"></h6>
 											<p class="text-muted mb-0">Última IP</p>
 										</div>
 										<div
@@ -156,7 +156,7 @@
 													<div class="preview-item-content d-sm-flex flex-grow">
 														<div class="flex-grow">
 															<h6 class="preview-subject">Usuario</h6>
-															<p class="mb-0" th:text="${perfilUsuarioLogged.usuario.username}"></p>
+															<p class="mb-0" th:text="${perfil.usuario.username}"></p>
 														</div>
 
 													</div>
@@ -171,7 +171,7 @@
 														<div class="flex-grow">
 															<h6 class="preview-subject">Dinero</h6>
 															<p class="text-muted mb-0"
-																th:text="'$ ' + ${perfilUsuarioLogged.usuario.dinero}"></p>
+																th:text="'$ ' + ${perfil.usuario.dinero}"></p>
 														</div>
 
 													</div>
@@ -199,7 +199,7 @@
 													<div class="preview-item-content d-sm-flex flex-grow">
 														<div class="flex-grow">
 															<h6 class="preview-subject">Última conexión</h6>
-															<p class="text-muted mb-0" th:text="${perfilUsuarioLogged.ultimaCon}">
+															<p class="text-muted mb-0" th:text="${perfil.ultimaCon}">
 															</p>
 														</div>
 
@@ -246,7 +246,7 @@
 											</thead>
 											<tbody>
 
-												<tr th:each="trabajos : ${trabajosActivos}">
+												<tr th:each="trabajos : ${perfil.trabajosActivos}">
 													<td class="py-1">
 														<img th:src="${trabajos.img}" alt="image" />
 													</td>
@@ -316,6 +316,7 @@
 
 																</div>
 															</div>
+															</div>
 													</td>
 												</tr>
 
@@ -379,7 +380,7 @@
 										<div class="col-12">
 											<div class="preview-list">
 												<div class="preview-item border-bottom"
-													th:each="logros : ${logrosListaUser}">
+													th:each="logros : ${perfil.logros}">
 													<div class="preview-thumbnail">
 														<div class="preview-icon"><img th:src="@{${logros.url}}"
 																width="100" /></div>
@@ -418,6 +419,7 @@
 				<!-- main-panel ends -->
 			</div>
 			<!-- page-body-wrapper ends -->
+		</div>
 		</div>
 		<div th:replace="layout/layout :: pluginfooter"></div>
 		

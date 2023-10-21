@@ -434,20 +434,20 @@
 											</thead>
 											<tbody>
 
-												<tr th:each="trabajos : ${trabajosNoActivos}">
+												<tr th:each="trabajos2 : ${trabajosNoActivos}">
 													<td class="py-1">
-														<img th:src="${trabajos.img}" alt="image" />
+														<img th:src="${trabajos2.img}" alt="image" />
 													</td>
-													<td th:text="${trabajos.nombre}"></td>
+													<td th:text="${trabajos2.nombre}"></td>
 													<td>
 														<div class="progress">
 															<div class="progress-bar bg-success" role="progressbar"
-																th:style="'width:'+ ${trabajos.nivel} +'%'"
+																th:style="'width:'+ ${trabajos2.nivel} +'%'"
 																aria-valuenow="0" aria-valuemin="0" aria-valuemax="200">
 															</div>
 														</div>
 													</td>
-													<td th:text="${trabajos.nivel}"></td>
+													<td th:text="${trabajos2.nivel}"></td>
 												</tr>
 
 

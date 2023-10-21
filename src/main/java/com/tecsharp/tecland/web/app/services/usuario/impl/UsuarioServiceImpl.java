@@ -2,7 +2,6 @@ package com.tecsharp.tecland.web.app.services.usuario.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuario != null) {
             return true;
         } else {
-            System.out.println("No se encontro el usuario");
+            
             return false;
         }
 
@@ -74,7 +73,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public List<Usuario> getAllUsers() {
 		List<Usuario> ListUsers = usuarioRepository.getAllUsers();
+		
+		
+		
 		return ListUsers;
+	}
+
+	@Override
+	public void ActualizaPerfilUsuario(Usuario usuario) {
+		usuario.setUUID(usuarioRepository.obtieneUUID(usuario));
+		usuarioRepository.actualizarDineroUsuario(usuario);
+		usuarioRepository.actualizarInfoAuthme(usuario);
+		usuarioRepository.actualizarPuntosDeTrabajoUsuario(usuario);
+		
 	}
 
 

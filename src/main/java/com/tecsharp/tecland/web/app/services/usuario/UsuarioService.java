@@ -4,21 +4,20 @@ import java.util.List;
 
 import com.tecsharp.tecland.web.app.models.Usuario;
 
-
-
 public interface UsuarioService {
 
-	public Usuario login(String username, String password);
-    
-    public Usuario findByUsername(String username);
-    
-    public String findById(Integer id);
-    
-    public void actualizarBiografia(String biografia, Integer id);
-    
-    public Usuario checkUserExist(String username);
-    
-    public List<Usuario> getAllUsers();
-    
+	Usuario login(String username, String password);
+
+	Usuario findByUsername(String username);
+
+	String findById(Integer id);
+
+	void actualizarBiografia(String biografia, Integer id);
+
+	Usuario checkUserExist(String username);
+
+	List<Usuario> getAllUsers();
+	
+	void ActualizaPerfilUsuario(Usuario usuario);
 
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tecsharp.tecland.web.app.services.informacion.InformacionService;
 
@@ -16,11 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping({ "" })
+@RequestMapping({ "/" })
 public class InformacionController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 7497732115635945872L;
 	@Autowired
 	private InformacionService infoService;
 	

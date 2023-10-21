@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class Trabajo implements Serializable{
 
-    private String nombre;
+    private static final long serialVersionUID = -4516437053759583018L;
+	private String nombre;
     private Integer nivel;
     private String img;
 

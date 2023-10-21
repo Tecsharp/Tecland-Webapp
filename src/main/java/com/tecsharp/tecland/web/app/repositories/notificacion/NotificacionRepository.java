@@ -2,13 +2,13 @@ package com.tecsharp.tecland.web.app.repositories.notificacion;
 
 import com.tecsharp.tecland.web.app.models.Notificacion;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface NotificacionRepository {
 
     Boolean mandaNotificacionAUsuarioAgregado(String username, Integer usernameId, Integer amigoId);
 
-    ArrayList<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId);
+    List<Notificacion> obtenerNotificacionesUsuario(Integer usuarioId);
 
     Boolean eliminarNotificacionAgregarAmigo(Integer usuarioId, Integer amigoId);
 

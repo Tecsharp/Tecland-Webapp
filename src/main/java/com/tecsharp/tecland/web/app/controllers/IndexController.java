@@ -2,25 +2,12 @@ package com.tecsharp.tecland.web.app.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tecsharp.tecland.web.app.models.Notificacion;
-import com.tecsharp.tecland.web.app.models.Usuario;
-import com.tecsharp.tecland.web.app.services.amigo.AmigoService;
-import com.tecsharp.tecland.web.app.services.login.LoginService;
-import com.tecsharp.tecland.web.app.services.login.impl.LoginServiceSessionImpl;
-import com.tecsharp.tecland.web.app.services.notificacion.NotificacionService;
-import com.tecsharp.tecland.web.app.services.usuario.UsuarioService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,15 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping({"/", "/index"})
 public class IndexController implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-	
-	//@Autowired
-	//private Usuario usuario;
-	
-	@Autowired
-	private NotificacionService notificacionService;
-	
-	
+	private static final long serialVersionUID = -2105642709837992463L;
+
 	@GetMapping({"/index", "/"})
 	public String index(HttpServletRequest req, Model model) throws ServletException, IOException{
         		

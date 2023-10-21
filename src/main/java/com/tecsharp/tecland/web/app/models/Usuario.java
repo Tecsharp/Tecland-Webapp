@@ -5,14 +5,14 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Data
 @Component
 public class Usuario implements Serializable {
 
-    private Integer id;
+    private static final long serialVersionUID = -326943953747230173L;
+	private Integer id;
     private String UUID;
     private String username;
     private String correo;
@@ -30,6 +30,7 @@ public class Usuario implements Serializable {
     //AUTHME PLUGIN //
     private String ultimaIp;
     private Long ultimaConexion;
+    private String ultimaConString;
     private Integer estadoConexion;
     private String biografia;
     private String imgAvatar;

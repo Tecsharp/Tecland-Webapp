@@ -2,7 +2,9 @@ package com.tecsharp.tecland.web.app.services;
 
 public class ServiceJdbcException extends RuntimeException {
 
-    public ServiceJdbcException(String message) {
+    private static final long serialVersionUID = -6457272715900741209L;
+
+	public ServiceJdbcException(String message) {
         super(message);
     }
 

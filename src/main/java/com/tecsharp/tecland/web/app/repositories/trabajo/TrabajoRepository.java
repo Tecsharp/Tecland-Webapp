@@ -2,13 +2,13 @@ package com.tecsharp.tecland.web.app.repositories.trabajo;
 
 import com.tecsharp.tecland.web.app.models.Trabajo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TrabajoRepository {
 
-    ArrayList<Trabajo> obtenerTrabajosActivos(Integer idUser);
+    List<Trabajo> obtenerTrabajosActivos(Integer idUser);
 
-    ArrayList<Trabajo> obtenerTrabajosNoActivos(Integer idUser);
+    List<Trabajo> obtenerTrabajosNoActivos(Integer idUser);
 
 
 }
