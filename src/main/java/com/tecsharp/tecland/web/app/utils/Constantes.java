@@ -3,7 +3,7 @@ package com.tecsharp.tecland.web.app.utils;
 
 public class Constantes {
 
-    public static final String DB_PROPERTIES = "jdbc:mysql://localhost:3306/tecland?user=root&password=";
+    public static final String DB_PROPERTIES = "jdbc:mysql://192.168.0.100:3306/tecland?user=developer&password=elweon45?";
     
     public static final String NO_USER_LOGGED = "No has iniciado sesión";
     
