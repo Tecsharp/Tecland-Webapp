@@ -168,14 +168,14 @@ CREATE TABLE `authme` (
 --
 
 INSERT INTO `authme` (`id`, `username`, `realname`, `password`, `ip`, `lastlogin`, `x`, `y`, `z`, `world`, `regdate`, `regip`, `yaw`, `pitch`, `email`, `isLogged`, `hasSession`, `totp`, `biografia`, `admin`) VALUES
-(1, 'cuchariao', 'Cuchariao', '$SHA$f5871f5c5ae0dedb$4f76b36ebf1f924b721c9f22bd0b7909af4a6ab4139f510ba127806591d9ae0c', '192.168.1.5', 1686627358089, 0, 0, 0, 'world', 1686623034159, '192.168.1.5', NULL, NULL, NULL, 0, 0, NULL, '', 0),
-(2, 'tecsharp', 'Tecsharp', '$SHA$de1b483670c82b40$737fbd02db58af23f7d9680552723d0b1e88ba3ad0ee6ea0053da5543f9fa2fa', '127.0.0.1', 1695281107310, 0, 0, 0, 'world', 1686627529424, '192.168.1.5', NULL, NULL, NULL, 0, 0, NULL, 'A lupita le gustan las qks', 1),
-(3, 'denisse', 'Denisse', '$SHA$cae65b8f9732a55d$bb0658b11a73c89fc6b37fcc0664e626dc7b7c48596509aa566c87a485848de7', NULL, NULL, 0, 0, 0, 'world', 1686627633764, NULL, NULL, NULL, NULL, 0, 0, NULL, 'Me gustan las morritas', 0),
-(4, 'cuchao', 'Cuchao', '$SHA$0fe680c49438c00a$a8d31f07b1339843fffa17ac8df189fd597df211b2bccf9f45de2ac413238d5b', NULL, NULL, 0, 0, 0, 'world', 1686635565712, NULL, NULL, NULL, NULL, 0, 0, NULL, '', 0),
-(5, 'panchita', 'Panchita', '$SHA$d79b2aede9dcde98$e3b616bd5cbcc2d467a0e0f56e98efb3a64ec279b56c132944890e11103e61af', NULL, NULL, 0, 0, 0, 'world', 1686640775708, NULL, NULL, NULL, NULL, 0, 0, NULL, '', 0),
-(6, 'archtoon', 'ArchToon', '$SHA$f0d7f26094fc1386$9b5f06a26f039cd50ec230c3aea7d0cc2beb4acb5dcde14461568eb8ab9457c7', '26.22.75.119', 1689930961941, 0, 0, 0, 'world', 1689050053722, '26.22.75.119', NULL, NULL, NULL, 0, 0, NULL, '', 0),
-(7, 'zabdita', 'Zabdita', '$SHA$f4501e519bb554fb$be04b8252076d9640c13621752a2b6a0ac9ba0b22e9fd953a8498244573b31ae', '26.52.126.128', 1689653362422, 0, 0, 0, 'world', 1689130901742, '26.52.126.128', NULL, NULL, NULL, 0, 0, NULL, '', 0),
-(8, 'diegohazard', 'Diegohazard', '$SHA$6e0a3ee5e313cf29$8121b709dabdd184adfb252b9cfaf3f493ee65202bacf97566afa8903baa6a25', '26.183.126.80', 1689401758499, 0, 0, 0, 'world', 1689392013979, '26.183.126.80', NULL, NULL, NULL, 0, 0, NULL, '', 0);
+(1, 'cuchariao', 'Cuchariao', '$SHA$f5871f5c5ae0dedb$4f76b36sebf1f924b721c9f22bd0b7909af4a6ab4139f510ba127806591d9ae0c', '192.168.1.5', 1686627358089, 0, 0, 0, 'world', 1686623034159, '192.168.1.5', NULL, NULL, NULL, 0, 0, NULL, '', 0),
+(2, 'tecsharp', 'Tecsharp', '$SHA$de1b483670c82b40$737fbd02db5s8af23f7d9680552723d0b1e88ba3ad0ee6ea0053da5543f9fa2fa', '127.0.0.1', 1695281107310, 0, 0, 0, 'world', 1686627529424, '192.168.1.5', NULL, NULL, NULL, 0, 0, NULL, 'A lupita le gustan las qks', 1),
+(3, 'denisse', 'Denisse', '$SHA$cae65b8f9732a55d$bb0658b11a73c89fac6b37fcc0664e626dc7b7c48596509aa566c87a485848de7', NULL, NULL, 0, 0, 0, 'world', 1686627633764, NULL, NULL, NULL, NULL, 0, 0, NULL, 'Me gustan las morritas', 0),
+(4, 'cuchao', 'Cuchao', '$SHA$0fe680c49438c00a$a8d31f07b133a9843fffa17ac8df189fd597df211b2bccf9f45de2ac413238d5b', NULL, NULL, 0, 0, 0, 'world', 1686635565712, NULL, NULL, NULL, NULL, 0, 0, NULL, '', 0),
+(5, 'panchita', 'Panchita', '$SHA$d79b2aede9dcde98$e3b616bd5acbcc2d467a0e0f56e98efb3a64ec279b56c132944890e11103e61af', NULL, NULL, 0, 0, 0, 'world', 1686640775708, NULL, NULL, NULL, NULL, 0, 0, NULL, '', 0),
+(6, 'archtoon', 'ArchToon', '$SHA$f0d7f26094fc1386$9b5f06a26f03s9cd50ec230c3aea7d0cc2beb4acb5dcde14461568eb8ab9457c7', '26.22.75.119', 1689930961941, 0, 0, 0, 'world', 1689050053722, '26.22.75.119', NULL, NULL, NULL, 0, 0, NULL, '', 0),
+(7, 'zabdita', 'Zabdita', '$SHA$f4501e519bb554fb$be04b8252076d964s0c13621752a2b6a0ac9ba0b22e9fd953a8498244573b31ae', '26.52.126.128', 1689653362422, 0, 0, 0, 'world', 1689130901742, '26.52.126.128', NULL, NULL, NULL, 0, 0, NULL, '', 0),
+(8, 'diegohazard', 'Diegohazard', '$SHA$6e0a3ee5e313cf29$8121b709ddabdd184adfb252b9cfaf3f493ee65202bacf97566afa8903baa6a25', '26.183.126.80', 1689401758499, 0, 0, 0, 'world', 1689392013979, '26.183.126.80', NULL, NULL, NULL, 0, 0, NULL, '', 0);
 
 -- --------------------------------------------------------
 
